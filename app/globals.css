@@ -4022,3 +4022,800 @@ a:focus-visible {
     transition-duration: 1ms !important;
   }
 }
+
+/* 05.09.2026 — смысловая и адаптивная переработка согласованного варианта. */
+.release {
+  --page: #080d17;
+  --paper: #0d1422;
+  --ink: #f5f6f8;
+  --soft: #aeb8c8;
+  --line: #2b3546;
+  --accent-color: #6687ff;
+  --accent-contrast: #07101f;
+  font-size: 16px;
+}
+
+.release .site-nav {
+  min-height: 72px;
+  padding-inline: clamp(20px, 4vw, 64px);
+  background: rgba(8, 13, 23, 0.96);
+}
+
+.release .site-name,
+.release .site-nav nav a,
+.release .nav-status {
+  font-size: 0.875rem;
+}
+
+.release .hero,
+.release .case-index,
+.release .case-feature,
+.release .method,
+.release .other-projects,
+.release .experience,
+.release .details-section,
+.release .contact-section {
+  width: min(92vw, 1380px);
+}
+
+.release .hero {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  grid-template-areas:
+    "mark mark"
+    "copy portrait"
+    "logic logic";
+  column-gap: clamp(40px, 6vw, 96px);
+  row-gap: clamp(36px, 5vw, 72px);
+  min-height: 0 !important;
+  padding-block: clamp(36px, 5vw, 72px) 0;
+}
+
+.release .concept-mark {
+  position: static !important;
+  grid-area: mark;
+  justify-self: start;
+  color: var(--soft);
+  font-size: 0.875rem;
+}
+
+.release .concept-mark span:first-child {
+  width: 34px;
+  height: 34px;
+}
+
+.release .hero-copy {
+  position: static !important;
+  display: flex;
+  grid-area: copy;
+  min-width: 0;
+  flex-direction: column;
+  align-self: center;
+}
+
+.release .hero-copy > * {
+  position: static !important;
+  width: auto !important;
+  max-width: 760px;
+  transform: none;
+}
+
+.release .hero-kicker {
+  order: 0;
+  margin: 0 0 1.5rem;
+  color: var(--accent-color);
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  letter-spacing: 0.09em;
+  line-height: 1.45;
+}
+
+.release .hero-name {
+  order: 1;
+  margin: 0 0 1rem;
+  color: var(--soft);
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+}
+
+.release .hero h1 {
+  position: static !important;
+  order: 2;
+  margin: 0;
+  font-size: inherit !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+}
+
+.release .hero h1 span {
+  position: static !important;
+  display: block;
+  width: auto !important;
+  margin: 0 !important;
+  color: var(--ink) !important;
+  -webkit-text-stroke: 0 !important;
+  text-shadow: none !important;
+  transform: none;
+}
+
+.release .hero h1 span:first-child {
+  max-width: 12ch;
+  font-family: var(--display);
+  font-size: clamp(3.5rem, 7vw, 7.2rem);
+  font-weight: 700;
+  letter-spacing: -0.07em !important;
+  line-height: 0.88 !important;
+}
+
+.release .hero h1 span:last-child {
+  max-width: 32ch;
+  margin-top: 1.25rem !important;
+  color: #cad2df !important;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.025em !important;
+  line-height: 1.15 !important;
+  text-transform: none;
+}
+
+.release .hero-promise {
+  order: 3;
+  margin: clamp(28px, 4vw, 48px) 0 0;
+  color: var(--ink);
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+}
+
+.release .hero-intro {
+  order: 4;
+  margin: 1.5rem 0 0;
+  color: #d7dce5;
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.release .hero-support {
+  order: 5;
+  margin: 1.5rem 0 0;
+  color: var(--soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  line-height: 1.55;
+}
+
+.release .hero-meta {
+  position: static !important;
+  order: 6;
+  display: grid;
+  gap: 0.55rem;
+  margin: 2rem 0 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+  letter-spacing: 0.035em;
+  line-height: 1.5;
+}
+
+.release .hero-meta span + span::before {
+  display: none;
+}
+
+.release .hero-actions {
+  position: static !important;
+  order: 7;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 1.5rem 0 0;
+}
+
+.release .button {
+  min-height: 52px;
+  padding: 0.9rem 1.2rem;
+  font-size: 0.95rem;
+}
+
+.release .portrait {
+  position: static !important;
+  grid-area: portrait;
+  width: min(100%, 470px) !important;
+  margin: 0 !important;
+  align-self: center;
+  justify-self: end;
+  transform: none !important;
+}
+
+.release .portrait-frame {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 0.78;
+}
+
+.release .portrait img {
+  object-position: center top !important;
+  filter: saturate(1.06) contrast(1.01) brightness(1.03) !important;
+}
+
+.release .portrait figcaption {
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.release .logic-sequence {
+  position: relative !important;
+  inset: auto !important;
+  display: block !important;
+  grid-area: logic;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  border: 1px solid var(--line);
+  transform: none !important;
+}
+
+.release .sequence-head {
+  position: static !important;
+  display: flex;
+  min-height: 0 !important;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100% !important;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.release .sequence-head strong {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.release .sequence-track {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: repeat(9, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.release .sequence-track li {
+  position: relative !important;
+  display: flex !important;
+  min-width: 0;
+  min-height: 112px;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 14px;
+  border-right: 1px solid var(--line);
+}
+
+.release .sequence-track li:last-child {
+  border-right: 0;
+}
+
+.release .sequence-track small,
+.release .sequence-track span {
+  position: static !important;
+  font-size: 0.875rem !important;
+  line-height: 1.35 !important;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.release .sequence-track span {
+  font-weight: 600;
+}
+
+.release .sequence-inputs,
+.release .hero-folio {
+  display: none !important;
+}
+
+.release .case-index,
+.release .method,
+.release .case-feature,
+.release .other-projects,
+.release .experience,
+.release .details-section,
+.release .contact-section {
+  position: relative !important;
+  inset: auto !important;
+  margin-inline: auto !important;
+  padding-block: clamp(72px, 9vw, 132px) !important;
+  border-top: 1px solid var(--line);
+}
+
+.release .section-number,
+.release .case-feature-head > div > p,
+.release .case-feature-head dt,
+.release .case-process header > span,
+.release .case-outcome article > span,
+.release .other-project-body article > span {
+  font-size: 0.875rem !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+}
+
+.release .section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  gap: clamp(28px, 6vw, 84px);
+  margin-top: 30px;
+  align-items: end;
+}
+
+.release .section-heading h2,
+.release .case-feature-head h2,
+.release .contact-copy h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5.2vw, 5.6rem) !important;
+  letter-spacing: -0.055em !important;
+  line-height: 0.98 !important;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.release .section-heading p,
+.release .contact-copy > p {
+  max-width: 680px;
+  margin: 0;
+  color: #d7dce5;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem) !important;
+  line-height: 1.6 !important;
+}
+
+.release .scenario-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(44px, 6vw, 80px);
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.release .scenario-list article {
+  min-height: 270px;
+  padding: clamp(24px, 3vw, 42px);
+  background: var(--page);
+}
+
+.release .scenario-list article > span,
+.release .question-index {
+  font-size: 0.875rem !important;
+}
+
+.release .scenario-list h3,
+.release .question h3 {
+  font-size: clamp(1.4rem, 2vw, 2rem) !important;
+  line-height: 1.15 !important;
+}
+
+.release .scenario-list p,
+.release .question p {
+  font-size: 1.05rem !important;
+  line-height: 1.58 !important;
+}
+
+.release .method-subtitle {
+  margin: clamp(56px, 8vw, 104px) 0 24px;
+  font-size: clamp(1.8rem, 3.2vw, 3.25rem);
+  letter-spacing: -0.04em;
+}
+
+.release .question-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 0;
+}
+
+.release .metric-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  margin-top: clamp(42px, 6vw, 78px) !important;
+}
+
+.release .metric {
+  min-height: 300px !important;
+  padding: clamp(24px, 3vw, 40px) !important;
+}
+
+.release .metric strong {
+  font-size: clamp(2.5rem, 4vw, 4.5rem) !important;
+  line-height: 1 !important;
+}
+
+.release .metric-meta,
+.release .metric-link,
+.release .metric-index {
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+}
+
+.release .case-feature-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+  gap: clamp(32px, 6vw, 84px);
+  margin-top: 28px;
+  align-items: end;
+}
+
+.release .case-feature-head > div > p {
+  margin: 0 0 18px;
+  color: var(--accent-color);
+}
+
+.release .case-feature-head dl {
+  margin: 0;
+}
+
+.release .case-feature-head dl div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 18px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.release .case-feature-head dd {
+  margin: 0;
+  font-size: 1rem !important;
+  line-height: 1.45 !important;
+}
+
+.release .case-brief {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(36px, 5vw, 64px);
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.release .case-brief p {
+  margin: 0;
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--page);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.release .case-brief span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--accent-color);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.release .case-disclosure {
+  margin-top: 1px;
+  border: 1px solid var(--line);
+}
+
+.release .case-disclosure > summary {
+  display: flex;
+  min-height: 72px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 24px;
+  background: var(--paper);
+  font-size: 1rem;
+  font-weight: 650;
+  list-style: none;
+}
+
+.release .case-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.release .case-disclosure > summary b {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  font-weight: 400;
+  transition: transform 180ms ease;
+}
+
+.release .case-disclosure[open] > summary b {
+  transform: rotate(45deg);
+}
+
+.release .case-disclosure-body {
+  padding: clamp(24px, 3.5vw, 50px);
+  border-top: 1px solid var(--line);
+}
+
+.release .case-context-grid,
+.release .case-feature-grid,
+.release .case-outcome {
+  position: static !important;
+  display: grid !important;
+  height: auto !important;
+}
+
+.release .case-context-grid p,
+.release .case-feature-grid p,
+.release .case-outcome p,
+.release .case-process p,
+.release .case-process li span,
+.release .case-diagram p,
+.release .case-diagram li span {
+  font-size: 1rem !important;
+  line-height: 1.58 !important;
+}
+
+.release .case-process {
+  position: static !important;
+  margin-top: 1px;
+}
+
+.release .case-process ol {
+  display: block;
+  padding: 0 2rem;
+}
+
+.release .case-process li {
+  min-height: 96px;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+}
+
+.release .case-process li span {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.release .case-diagram {
+  position: static !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.release .case-diagram-result strong {
+  font-size: clamp(3rem, 6vw, 6.5rem) !important;
+}
+
+.release .other-project-list summary,
+.release .other-project-body p,
+.release .experience-list p,
+.release .experience-list strong,
+.release .tools-panel p,
+.release .education-panel p,
+.release .contact-section address,
+.release .contact-section address a {
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+}
+
+.release .other-project-title strong,
+.release .experience-list h3,
+.release .tools-panel h3,
+.release .education-panel h3 {
+  font-size: clamp(1.3rem, 2vw, 1.85rem) !important;
+  line-height: 1.2 !important;
+}
+
+.release .other-project-title small,
+.release .other-project-index,
+.release .experience-period,
+.release .experience-focus,
+.release .tools-panel span,
+.release .education-panel span {
+  font-size: 0.875rem !important;
+  line-height: 1.45 !important;
+}
+
+.release .portrait figcaption span,
+.release .case-diagram small,
+.release .case-context-grid article > span,
+.release .case-feature-grid article > span,
+.release .case-process li small,
+.release .proof-tags span {
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+}
+
+.release .experience-links a,
+.release .contact-copy > span,
+.release .button b {
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+}
+
+@media (max-width: 1100px) {
+  .release .site-nav {
+    grid-template-columns: 1fr auto;
+  }
+
+  .release .nav-status {
+    display: none;
+  }
+
+  .release .hero {
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+    column-gap: 36px;
+  }
+
+  .release .sequence-track {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .release .sequence-track li {
+    min-height: 96px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .release .metric-grid,
+  .release .question-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+}
+
+@media (max-width: 760px) {
+  .release .site-nav {
+    min-height: 62px;
+    padding-inline: 20px;
+  }
+
+  .release .site-name {
+    font-size: 0.9rem;
+  }
+
+  .release .site-nav nav {
+    gap: 14px;
+  }
+
+  .release .site-nav nav a {
+    display: none;
+  }
+
+  .release .site-nav nav a:first-child,
+  .release .site-nav nav a:last-child {
+    display: block;
+  }
+
+  .release .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "mark"
+      "copy"
+      "portrait"
+      "logic";
+    gap: 32px;
+    width: min(100% - 40px, 560px);
+    padding-top: 28px;
+  }
+
+  .release .hero h1 span:first-child {
+    max-width: none;
+    font-size: clamp(3rem, 15.4vw, 4.8rem);
+    letter-spacing: -0.075em !important;
+  }
+
+  .release .hero h1 span:last-child {
+    max-width: 28ch;
+    font-size: clamp(1.2rem, 6vw, 1.55rem);
+  }
+
+  .release .hero-promise {
+    font-size: clamp(1.7rem, 8.5vw, 2.45rem);
+  }
+
+  .release .hero-intro {
+    font-size: 1rem;
+  }
+
+  .release .portrait {
+    width: 100% !important;
+    max-width: 440px;
+    justify-self: start;
+  }
+
+  .release .sequence-head {
+    display: grid;
+    gap: 6px;
+  }
+
+  .release .sequence-head strong {
+    text-align: left;
+  }
+
+  .release .sequence-track {
+    grid-template-columns: 1fr !important;
+  }
+
+  .release .sequence-track li {
+    min-height: 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 16px 18px;
+    border-right: 0;
+  }
+
+  .release .case-index,
+  .release .method,
+  .release .case-feature,
+  .release .other-projects,
+  .release .experience,
+  .release .details-section,
+  .release .contact-section {
+    width: min(100% - 40px, 560px);
+    padding-block: 72px !important;
+  }
+
+  .release .section-heading,
+  .release .case-feature-head,
+  .release .case-brief {
+    grid-template-columns: 1fr;
+  }
+
+  .release .section-heading h2,
+  .release .case-feature-head h2,
+  .release .contact-copy h2 {
+    font-size: clamp(2.2rem, 11vw, 3.4rem) !important;
+  }
+
+  .release .scenario-list,
+  .release .metric-grid,
+  .release .question-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .release .scenario-list article,
+  .release .metric {
+    min-height: 0 !important;
+  }
+
+  .release .case-process ol {
+    padding: 0 18px;
+  }
+
+  .release .case-process li {
+    min-height: 0;
+  }
+
+  .release .case-disclosure-body {
+    padding: 18px;
+  }
+
+  .release .case-context-grid,
+  .release .case-feature-grid,
+  .release .case-outcome,
+  .release .case-diagram,
+  .release .other-project-body,
+  .release .experience-list > article,
+  .release .details-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .release .hero,
+  .release .case-index,
+  .release .method,
+  .release .case-feature,
+  .release .other-projects,
+  .release .experience,
+  .release .details-section,
+  .release .contact-section {
+    width: calc(100% - 32px);
+  }
+
+  .release .hero h1 span:first-child {
+    font-size: 2.75rem;
+  }
+
+  .release .hero-promise {
+    font-size: 1.75rem;
+  }
+}
