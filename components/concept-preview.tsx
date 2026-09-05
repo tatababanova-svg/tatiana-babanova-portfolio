@@ -115,7 +115,7 @@ function CaseMeta({ item }: { item: CaseItem }) {
   return (
     <dl>
       <div><dt>Роль</dt><dd>{item.role}</dd></div>
-      <div><dt>Инструменты</dt><dd>{item.tools}</dd></div>
+      <div><dt>Подход</dt><dd>{item.tools}</dd></div>
       <div><dt>Масштаб</dt><dd>{item.scale}</dd></div>
     </dl>
   );
@@ -173,51 +173,60 @@ function CaseStudy({ item, polish }: { item: CaseItem; polish: PolishId }) {
       <div className="section-number">04.{item.number} / РАЗБОР ПРОЕКТА</div>
       <header className="case-feature-head">
         <div>
-          <p>CASE {item.number} · {item.label}</p>
+          <p>КЕЙС {item.number} · {item.label}</p>
           <h2 id={`case-${item.id}-title`}>{item.title}</h2>
         </div>
         <CaseMeta item={item} />
       </header>
+      <div className="case-brief">
+        <p><span>Задача</span>{item.context}</p>
+        <p><span>Результат</span>{item.result}</p>
+      </div>
 
-      {item.visual ? <BeforeAfterDiagram item={item} polish={polish} /> : (
-        <div className="case-context-grid">
-          <article><span>01</span><h3>Контекст</h3><p>{item.context}</p></article>
-          <article><span>02</span><h3>Что было до</h3><p>{item.before}</p></article>
-          <article><span>03</span><h3>Диагностика</h3><p>{item.diagnosis}</p></article>
+      <details className="case-disclosure">
+        <summary><span>Открыть полный разбор решения</span><b aria-hidden="true">+</b></summary>
+        <div className="case-disclosure-body">
+          {item.visual ? <BeforeAfterDiagram item={item} polish={polish} /> : (
+            <div className="case-context-grid">
+              <article><span>01</span><h3>Контекст</h3><p>{item.context}</p></article>
+              <article><span>02</span><h3>Что было до</h3><p>{item.before}</p></article>
+              <article><span>03</span><h3>Диагностика</h3><p>{item.diagnosis}</p></article>
+            </div>
+          )}
+
+          <div className="case-feature-grid">
+            {decisionCards.map(([title, text], index) => (
+              <article key={title}>
+                <span>0{index + 1}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="case-process">
+            <header>
+              <span>МЕХАНИЗМ РЕАЛИЗАЦИИ</span>
+              <p>{item.rejectedOrNotChosen}</p>
+            </header>
+            <ol>
+              {item.implementation.map((step, index) => (
+                <li key={step}><small>{String(index + 1).padStart(2, "0")}</small><span>{step}</span></li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="case-outcome">
+            <article><span>ПРИЁМКА</span><p>{item.acceptance}</p></article>
+            <article className="case-outcome-result"><span>РЕЗУЛЬТАТ</span><p>{item.result}</p></article>
+            <article><span>ПРИНЦИП УПРАВЛЕНИЯ</span><p>{item.managementPrinciple}</p></article>
+          </div>
+
+          <div className="proof-tags" aria-label="Подтверждаемые компетенции">
+            {item.proofTags.map((tag) => <span key={tag}>{tag}</span>)}
+          </div>
         </div>
-      )}
-
-      <div className="case-feature-grid">
-        {decisionCards.map(([title, text], index) => (
-          <article key={title}>
-            <span>0{index + 1}</span>
-            <h3>{title}</h3>
-            <p>{text}</p>
-          </article>
-        ))}
-      </div>
-
-      <div className="case-process">
-        <header>
-          <span>МЕХАНИЗМ РЕАЛИЗАЦИИ</span>
-          <p>{item.rejectedOrNotChosen}</p>
-        </header>
-        <ol>
-          {item.implementation.map((step, index) => (
-            <li key={step}><small>{String(index + 1).padStart(2, "0")}</small><span>{step}</span></li>
-          ))}
-        </ol>
-      </div>
-
-      <div className="case-outcome">
-        <article><span>ПРИЁМКА</span><p>{item.acceptance}</p></article>
-        <article className="case-outcome-result"><span>РЕЗУЛЬТАТ</span><p>{item.result}</p></article>
-        <article><span>ПРИНЦИП УПРАВЛЕНИЯ</span><p>{item.managementPrinciple}</p></article>
-      </div>
-
-      <div className="proof-tags" aria-label="Подтверждаемые компетенции">
-        {item.proofTags.map((tag) => <span key={tag}>{tag}</span>)}
-      </div>
+      </details>
     </section>
   );
 }
@@ -245,19 +254,10 @@ function Portrait() {
 function MethodSection() {
   return (
     <section className="method" id="method" aria-labelledby="method-title" data-motion-section>
-      <div className="section-number">03 / {profile.sectionLabels.method}</div>
+      <div className="section-number">02 / {profile.sectionLabels.method}</div>
       <div className="section-heading">
         <h2 id="method-title">{profile.method.title}</h2>
         <p>{profile.method.intro}</p>
-      </div>
-      <div className="question-grid">
-        {profile.method.questions.map((item, index) => (
-          <article className="question" key={item.question}>
-            <span className="question-index" aria-hidden="true">0{index + 1}</span>
-            <h3>{item.question}</h3>
-            <p>→ {item.answer}</p>
-          </article>
-        ))}
       </div>
       <div className="scenario-list">
         {profile.method.scenarios.map((item) => (
@@ -268,23 +268,13 @@ function MethodSection() {
           </article>
         ))}
       </div>
-    </section>
-  );
-}
-
-function SummaryBand() {
-  return (
-    <section className="summary-band" aria-labelledby="summary-title" data-motion-section>
-      <div className="section-number">05 / МАСШТАБ</div>
-      <div className="section-heading">
-        <h2 id="summary-title">{profile.summary.title}</h2>
-        <p>{profile.summary.text}</p>
-      </div>
-      <div className="summary-metrics">
-        {profile.summary.items.map((item) => (
-          <article key={item.value}>
-            <strong>{item.value}</strong>
-            <p>{item.label}</p>
+      <h3 className="method-subtitle">Как принимаю решения</h3>
+      <div className="question-grid">
+        {profile.method.questions.map((item, index) => (
+          <article className="question" key={item.question}>
+            <span className="question-index" aria-hidden="true">0{index + 1}</span>
+            <h3>{item.question}</h3>
+            <p>→ {item.answer}</p>
           </article>
         ))}
       </div>
@@ -297,8 +287,8 @@ function OtherProjectsSection() {
     <section className="other-projects" id="other-projects" aria-labelledby="other-projects-title" data-motion-section>
       <div className="section-number">06 / {profile.sectionLabels.otherProjects}</div>
       <div className="section-heading">
-        <h2 id="other-projects-title">ЕЩЁ ВОСЕМЬ ПРОЕКТНЫХ РАЗВИЛОК</h2>
-        <p>В закрытом состоянии — результат. В раскрытии — управленческое решение и риск, который нужно было удержать.</p>
+        <h2 id="other-projects-title">ЕЩЁ ВОСЕМЬ ПРОЕКТНЫХ РЕШЕНИЙ</h2>
+        <p>Короткие примеры других задач. Откройте нужный проект, чтобы увидеть решение, риск и подтверждённый результат.</p>
       </div>
       <div className="other-project-list">
         {otherProjects.map((item, index) => (
@@ -325,8 +315,8 @@ function ExperienceSection() {
     <section className="experience" id="experience" aria-labelledby="experience-title" data-motion-section>
       <div className="section-number">07 / {profile.sectionLabels.experience}</div>
       <div className="section-heading">
-        <h2 id="experience-title">КАРЬЕРНАЯ ИСТОРИЯ</h2>
-        <p>Коротко о контуре роли. Подробности, решения и результаты раскрыты в кейсах выше.</p>
+        <h2 id="experience-title">КАК РОС МОЙ УРОВЕНЬ ОТВЕТСТВЕННОСТИ</h2>
+        <p>От проектной дисциплины и фиксированных сроков — к большему масштабу и самостоятельному ведению задач без готового решения.</p>
       </div>
       <div className="experience-list">
         {experience.map((item) => (
@@ -356,7 +346,7 @@ function DetailsSection() {
       <div className="section-number">08 / {profile.sectionLabels.details}</div>
       <div className="section-heading">
         <h2 id="details-title">ПРОФЕССИОНАЛЬНЫЙ КОНТУР</h2>
-        <p>Инструменты показаны внутри кейсов; здесь — полный справочный список из обновлённого резюме.</p>
+        <p>Инструменты поддерживают решения и показаны внутри кейсов. Здесь — краткая справочная база.</p>
       </div>
       <div className="details-grid">
         <article className="tools-panel">
@@ -395,7 +385,7 @@ function ContactSection() {
       </div>
       <div className="contact-links">
         <a className="button button-primary" href={contacts.telegramHref} data-analytics-event="contact_telegram">Написать в Telegram <b aria-hidden="true">↗</b></a>
-        <a className="button button-secondary" href={contacts.emailHref} data-analytics-event="contact_email">Написать на email <b aria-hidden="true">↗</b></a>
+        <a className="button button-secondary" href={contacts.emailHref} data-analytics-event="contact_email">Написать на почту <b aria-hidden="true">↗</b></a>
         <a className="button button-secondary" id="pdf" href={contacts.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">PDF-резюме <b aria-hidden="true">↓</b></a>
       </div>
       <address>
@@ -464,8 +454,10 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
           </div>
         </section>
 
+        <MethodSection />
+
         <section className="case-index" id="cases" aria-labelledby="cases-title" data-motion-section>
-          <div className="section-number">02 / {profile.sectionLabels.cases}</div>
+          <div className="section-number">03 / {profile.sectionLabels.cases}</div>
           <div className="section-heading">
             <h2 id="cases-title">{profile.caseIndex.title}</h2>
             <p>{profile.caseIndex.intro}</p>
@@ -482,9 +474,7 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
           </div>
         </section>
 
-        <MethodSection />
         {polish ? caseItems.map((item) => <CaseStudy item={item} polish={polish} key={item.id} />) : null}
-        <SummaryBand />
         <OtherProjectsSection />
         <ExperienceSection />
         <DetailsSection />
