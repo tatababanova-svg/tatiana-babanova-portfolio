@@ -85,8 +85,18 @@ const profileModel: Model = {
       { name: "portraitSrc", label: "Фотография", type: "image", required: true },
       stringField("portraitAlt", "Описание фотографии"),
       stringField("portraitCaption", "Подпись фотографии"),
+      listOfObjects("proofs", "Доказательства масштаба", [
+        stringField("value", "Значение"),
+        stringField("label", "Подпись"),
+      ]),
       listOfStrings("sourceLabels", "Исходные параметры"),
       listOfStrings("flow", "Этапы проектного потока"),
+    ]),
+    listOfObjects("hooks", "Смысловые акценты", [
+      stringField("label", "Метка"),
+      stringField("before", "Текст до акцента"),
+      stringField("accent", "Выделенная часть"),
+      stringField("after", "Текст после акцента", false),
     ]),
     objectField("logic", "Project logic", [
       stringField("ariaLabel", "Доступное название схемы"),
