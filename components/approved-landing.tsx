@@ -90,7 +90,7 @@ function HeroSection() {
       <div className="approved-hero-stats" aria-label="Ключевые показатели">
         {hero.stats.map((stat) => (
           <article key={stat.value}>
-            <strong>{stat.value}</strong>
+            <strong className="approved-numeric">{stat.value}</strong>
             <span>{stat.label}</span>
           </article>
         ))}
@@ -122,7 +122,7 @@ function ResultsSection() {
         {results.items.map((item, index) => (
           <article className={`approved-result approved-result-${index + 1}`} key={item.accent}>
             <span className="approved-result-index">0{index + 1}</span>
-            <strong className="approved-result-accent">{item.accent}</strong>
+            <strong className={`approved-result-accent${/\d/.test(item.accent) ? " approved-numeric" : ""}`}>{item.accent}</strong>
             <h3>{item.title}</h3>
             {item.intro ? <p>{item.intro}</p> : null}
             {"detailsBeforePrimary" in item && item.detailsBeforePrimary ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
@@ -137,7 +137,7 @@ function ResultsSection() {
         <h3>{results.scale.title}</h3>
         <div>
           {results.scale.items.map((item) => (
-            <p key={item.value}><strong>{item.value}</strong><span>{item.label}</span></p>
+            <p key={item.value}><strong className="approved-numeric">{item.value}</strong><span>{item.label}</span></p>
           ))}
         </div>
       </aside>
@@ -206,7 +206,7 @@ function CasesSection() {
         {cases.items.map((item) => (
           <article className="approved-case" key={item.number}>
             <header className="approved-case-head">
-              <span className="approved-case-number">{item.number}</span>
+              <span className="approved-case-number approved-numeric">{item.number}</span>
               <div>
                 <p className="approved-case-tags">{item.tags}</p>
                 <h3>{item.title}</h3>
@@ -238,7 +238,7 @@ function CasesSection() {
               {item.results.length ? (
                 <div className="approved-case-metrics">
                   {item.results.map((result) => (
-                    <p key={result.value}><strong>{result.value}</strong>{"label" in result && result.label ? <span>{result.label}</span> : null}</p>
+                    <p key={result.value}><strong className={/\d/.test(result.value) ? "approved-numeric" : undefined}>{result.value}</strong>{"label" in result && result.label ? <span>{result.label}</span> : null}</p>
                   ))}
                 </div>
               ) : null}
