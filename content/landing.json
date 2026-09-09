@@ -5,6 +5,7 @@
     { "label": "Как работаю", "target": "method" },
     { "label": "Кейсы", "target": "cases" },
     { "label": "Опыт", "target": "experience" },
+    { "label": "Компетенции", "target": "details" },
     { "label": "Контакты", "target": "contacts" },
     { "label": "PDF", "target": "pdf" }
   ],
@@ -264,7 +265,8 @@
     "role": "Открыта к роли Project Manager во внутренних и кросс-функциональных бизнес-проектах.",
     "roleEmphasis": "Project Manager",
     "ctaTitle": "Давайте обсудим задачу и роль.",
-    "cta": "Связаться со мной",
+    "cta": "Написать в Telegram",
+    "telegramHref": "https://t.me/taninnik",
     "phone": "+7 (986) 723-31-55",
     "phoneHref": "tel:+79867233155",
     "email": "babanova595@gmail.com",
