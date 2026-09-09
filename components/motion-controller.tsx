@@ -14,7 +14,7 @@ export function MotionController({ motion }: { motion: MotionId }) {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const sections = Array.from(scope.querySelectorAll<HTMLElement>("[data-motion-section]"));
     const staggeredItems = scope.querySelectorAll<HTMLElement>(
-      ".sequence-track li, .metric, .question, .scenario-list article, .case-diagram li, .case-feature-grid article, .case-process li, .summary-metrics article",
+      ".sequence-track li, .metric, .question, .scenario-list article, .case-diagram li, .case-feature-grid article, .case-process li, .summary-metrics article, .editorial-hook",
     );
 
     staggeredItems.forEach((item, index) => {
@@ -24,11 +24,21 @@ export function MotionController({ motion }: { motion: MotionId }) {
     root.classList.add("motion-enabled");
     scope.classList.add("motion-mounted");
 
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      scope.style.setProperty("--scroll-progress", String(progress));
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+
     if (reducedMotion) {
       scope.classList.add("motion-reduced");
       sections.forEach((section) => section.classList.add("is-visible"));
 
       return () => {
+        window.removeEventListener("scroll", updateProgress);
         root.classList.remove("motion-enabled");
       };
     }
@@ -48,6 +58,7 @@ export function MotionController({ motion }: { motion: MotionId }) {
 
     return () => {
       observer.disconnect();
+      window.removeEventListener("scroll", updateProgress);
       root.classList.remove("motion-enabled");
     };
   }, [motion]);
