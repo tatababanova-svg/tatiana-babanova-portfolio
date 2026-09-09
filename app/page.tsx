@@ -1,5 +1,5 @@
-import { EditorialMotionPreview } from "@/components/concept-preview";
+import { ApprovedLanding } from "@/components/approved-landing";
 
 export default function Home() {
-  return <EditorialMotionPreview motion="c" release />;
+  return <ApprovedLanding />;
 }
