@@ -8,6 +8,7 @@ import tools from "@/content/tools.json";
 import educationContent from "@/content/education.json";
 import contacts from "@/content/contacts.json";
 import { MotionController, type MotionId } from "@/components/motion-controller";
+import { MobileNavigation } from "@/components/mobile-navigation";
 
 export type ConceptId = "a" | "b" | "c";
 export type PolishId = "a" | "b" | "c";
@@ -34,7 +35,24 @@ const education = (educationContent.items as WithVisibility<(typeof educationCon
 type CaseItem = WithVisibility<(typeof casesContent.items)[number]> & { visual?: CaseVisual };
 const caseItems = (casesContent.items as CaseItem[]).filter(isVisible);
 
-const navTargets = ["top", "cases", "method", "experience", "contacts", "pdf"];
+const navTargets = ["top", "method", "project-logic", "cases", "other-projects", "experience", "details", "contacts", "pdf"];
+
+function SectionLabel({ children }: { children: string }) {
+  return <div className="section-label">{children}</div>;
+}
+
+function EditorialHook({ index }: { index: number }) {
+  const hook = profile.hooks[index];
+
+  return (
+    <aside className={`editorial-hook editorial-hook-${index + 1}`} data-motion-section aria-label={hook.label}>
+      <div>
+        <span>{hook.label}</span>
+        <p>{hook.before} <strong>{hook.accent}</strong>{hook.after ? ` ${hook.after}` : ""}</p>
+      </div>
+    </aside>
+  );
+}
 
 function DecisionRunway() {
   return (
@@ -62,7 +80,7 @@ function DecisionRunway() {
 
 function EditorialSequence({ polish }: { polish?: PolishId }) {
   return (
-    <div id="project-logic" className={`logic-visual logic-sequence ${polish ? `logic-polish-${polish}` : ""}`} aria-label={profile.logic.ariaLabel}>
+    <div className={`logic-visual logic-sequence ${polish ? `logic-polish-${polish}` : ""}`} aria-label={profile.logic.ariaLabel}>
       <div className="sequence-head">
         <span>{profile.logic.sequenceLabel}</span>
         <strong>{profile.logic.sequenceValue}</strong>
@@ -109,6 +127,19 @@ function ProjectLogic({ concept, polish }: { concept: ConceptId; polish?: Polish
   if (concept === "a") return <DecisionRunway />;
   if (concept === "b") return <EditorialSequence polish={polish} />;
   return <ControlField />;
+}
+
+function ProjectFlowSection({ polish }: { polish?: PolishId }) {
+  return (
+    <section className="project-flow-section" id="project-logic" aria-labelledby="project-flow-title" data-motion-section>
+      <div className="project-flow-heading">
+        <SectionLabel>{profile.logic.sequenceLabel}</SectionLabel>
+        <h2 id="project-flow-title">Путь от задачи до принятого результата</h2>
+        <p>На каждом этапе есть понятный вопрос, решение и следующая точка контроля.</p>
+      </div>
+      <EditorialSequence polish={polish} />
+    </section>
+  );
 }
 
 function CaseMeta({ item }: { item: CaseItem }) {
@@ -170,7 +201,7 @@ function CaseStudy({ item, polish }: { item: CaseItem; polish: PolishId }) {
 
   return (
     <section className={`case-feature ${item.visual ? "case-feature-lead" : ""}`} id={item.id} aria-labelledby={`case-${item.id}-title`} data-motion-section>
-      <div className="section-number">04.{item.number} / РАЗБОР ПРОЕКТА</div>
+      <SectionLabel>РАЗБОР ПРОЕКТА</SectionLabel>
       <header className="case-feature-head">
         <div>
           <p>КЕЙС {item.number} · {item.label}</p>
@@ -183,21 +214,25 @@ function CaseStudy({ item, polish }: { item: CaseItem; polish: PolishId }) {
         <p><span>Результат</span>{item.result}</p>
       </div>
 
+      <blockquote className="case-principle">
+        <span>Ключевой принцип</span>
+        <p>{item.managementPrinciple}</p>
+      </blockquote>
+
       <details className="case-disclosure">
         <summary><span>Открыть полный разбор решения</span><b aria-hidden="true">+</b></summary>
         <div className="case-disclosure-body">
           {item.visual ? <BeforeAfterDiagram item={item} polish={polish} /> : (
             <div className="case-context-grid">
-              <article><span>01</span><h3>Контекст</h3><p>{item.context}</p></article>
-              <article><span>02</span><h3>Что было до</h3><p>{item.before}</p></article>
-              <article><span>03</span><h3>Диагностика</h3><p>{item.diagnosis}</p></article>
+              <article><h3>Контекст</h3><p>{item.context}</p></article>
+              <article><h3>Что было до</h3><p>{item.before}</p></article>
+              <article><h3>Диагностика</h3><p>{item.diagnosis}</p></article>
             </div>
           )}
 
           <div className="case-feature-grid">
-            {decisionCards.map(([title, text], index) => (
+            {decisionCards.map(([title, text]) => (
               <article key={title}>
-                <span>0{index + 1}</span>
                 <h3>{title}</h3>
                 <p>{text}</p>
               </article>
@@ -254,7 +289,7 @@ function Portrait() {
 function MethodSection() {
   return (
     <section className="method" id="method" aria-labelledby="method-title" data-motion-section>
-      <div className="section-number">02 / {profile.sectionLabels.method}</div>
+      <SectionLabel>{profile.sectionLabels.method}</SectionLabel>
       <div className="section-heading">
         <h2 id="method-title">{profile.method.title}</h2>
         <p>{profile.method.intro}</p>
@@ -262,7 +297,6 @@ function MethodSection() {
       <div className="scenario-list">
         {profile.method.scenarios.map((item) => (
           <article key={item.number}>
-            <span>{item.number}</span>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -270,9 +304,8 @@ function MethodSection() {
       </div>
       <h3 className="method-subtitle">Как принимаю решения</h3>
       <div className="question-grid">
-        {profile.method.questions.map((item, index) => (
+        {profile.method.questions.map((item) => (
           <article className="question" key={item.question}>
-            <span className="question-index" aria-hidden="true">0{index + 1}</span>
             <h3>{item.question}</h3>
             <p>→ {item.answer}</p>
           </article>
@@ -285,16 +318,15 @@ function MethodSection() {
 function OtherProjectsSection() {
   return (
     <section className="other-projects" id="other-projects" aria-labelledby="other-projects-title" data-motion-section>
-      <div className="section-number">06 / {profile.sectionLabels.otherProjects}</div>
+      <SectionLabel>{profile.sectionLabels.otherProjects}</SectionLabel>
       <div className="section-heading">
         <h2 id="other-projects-title">ЕЩЁ ВОСЕМЬ ПРОЕКТНЫХ РЕШЕНИЙ</h2>
         <p>Короткие примеры других задач. Откройте нужный проект, чтобы увидеть решение, риск и подтверждённый результат.</p>
       </div>
       <div className="other-project-list">
-        {otherProjects.map((item, index) => (
+        {otherProjects.map((item) => (
           <details id={item.id} key={item.id}>
             <summary>
-              <span className="other-project-index">{String(index + 1).padStart(2, "0")}</span>
               <span className="other-project-title"><small>{item.label}</small><strong>{item.title}</strong></span>
               <span className="other-project-result">{item.result}</span>
               <span className="other-project-toggle" aria-hidden="true">+</span>
@@ -313,10 +345,9 @@ function OtherProjectsSection() {
 function ExperienceSection() {
   return (
     <section className="experience" id="experience" aria-labelledby="experience-title" data-motion-section>
-      <div className="section-number">07 / {profile.sectionLabels.experience}</div>
+      <SectionLabel>{profile.sectionLabels.experience}</SectionLabel>
       <div className="section-heading">
         <h2 id="experience-title">КАК РОС МОЙ УРОВЕНЬ ОТВЕТСТВЕННОСТИ</h2>
-        <p>От проектной дисциплины и фиксированных сроков — к большему масштабу и самостоятельному ведению задач без готового решения.</p>
       </div>
       <div className="experience-list">
         {experience.map((item) => (
@@ -342,8 +373,8 @@ function ExperienceSection() {
 
 function DetailsSection() {
   return (
-    <section className="details-section" aria-labelledby="details-title" data-motion-section>
-      <div className="section-number">08 / {profile.sectionLabels.details}</div>
+    <section className="details-section" id="details" aria-labelledby="details-title" data-motion-section>
+      <SectionLabel>{profile.sectionLabels.details}</SectionLabel>
       <div className="section-heading">
         <h2 id="details-title">ПРОФЕССИОНАЛЬНЫЙ КОНТУР</h2>
         <p>Инструменты поддерживают решения и показаны внутри кейсов. Здесь — краткая справочная база.</p>
@@ -377,23 +408,18 @@ function DetailsSection() {
 function ContactSection() {
   return (
     <footer className="contact-section" id="contacts" aria-labelledby="contacts-title" data-motion-section>
-      <div className="section-number">09 / {profile.sectionLabels.contacts}</div>
+      <SectionLabel>{profile.sectionLabels.contacts}</SectionLabel>
       <div className="contact-copy">
         <h2 id="contacts-title">{contacts.title}</h2>
         <p>{contacts.text}</p>
         <span>{contacts.format}</span>
       </div>
       <div className="contact-links">
-        <a className="button button-primary" href={contacts.telegramHref} data-analytics-event="contact_telegram">Написать в Telegram <b aria-hidden="true">↗</b></a>
-        <a className="button button-secondary" href={contacts.emailHref} data-analytics-event="contact_email">Написать на почту <b aria-hidden="true">↗</b></a>
-        <a className="button button-secondary" id="pdf" href={contacts.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">PDF-резюме <b aria-hidden="true">↓</b></a>
+        <a className="contact-link contact-link-primary" href={contacts.telegramHref} data-analytics-event="contact_telegram"><span>Telegram</span><strong>{contacts.telegram}</strong><b aria-hidden="true">↗</b></a>
+        <a className="contact-link" href={contacts.emailHref} data-analytics-event="contact_email"><span>Почта</span><strong>{contacts.email}</strong><b aria-hidden="true">↗</b></a>
+        <a className="contact-link" href={contacts.phoneHref} data-analytics-event="contact_phone"><span>Телефон</span><strong>{contacts.phone}</strong><b aria-hidden="true">↗</b></a>
+        <a className="contact-link contact-link-resume" id="pdf" href={contacts.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf"><span>Резюме</span><strong>Открыть PDF</strong><b aria-hidden="true">↓</b></a>
       </div>
-      <address>
-        <strong>{contacts.name}</strong>
-        <a href={contacts.phoneHref} data-analytics-event="contact_phone">{contacts.phone}</a>
-        <a href={contacts.emailHref} data-analytics-event="contact_email">{contacts.email}</a>
-        <a href={contacts.telegramHref} data-analytics-event="contact_telegram">{contacts.telegram}</a>
-      </address>
     </footer>
   );
 }
@@ -409,20 +435,21 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
       {motion ? <MotionController motion={motion} /> : null}
       <header className="site-nav">
         <a className="site-name" href="#top">{profile.navigation[0]}</a>
-        <span className="nav-status"><i />{profile.navigationStatus}</span>
-        <nav aria-label="Основная навигация">
+        <nav className="desktop-nav" aria-label="Основная навигация">
           {profile.navigation.slice(1).map((item, index) => (
             <a key={item} href={`#${navTargets[index + 1]}`}>{item}</a>
           ))}
         </nav>
+        <MobileNavigation items={profile.navigation.slice(1)} targets={navTargets.slice(1)} />
+        <span className="site-progress" aria-hidden="true" />
       </header>
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
-          <div className="concept-mark" aria-label={release ? "Профиль Project Manager" : `Концепция ${concept.toUpperCase()}`}>
+          {!release ? <div className="concept-mark" aria-label={`Концепция ${concept.toUpperCase()}`}>
             <span>{release ? "PM" : `0${concept === "a" ? 1 : concept === "b" ? 2 : 3}`}</span>
             <span>{conceptMeta.label}</span>
-          </div>
+          </div> : null}
 
           <div className="hero-copy">
             <p className="hero-name">{profile.hero.name}</p>
@@ -430,23 +457,25 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
               <span>{profile.hero.roleLine1}</span>
               <span>{profile.hero.roleLine2}</span>
             </h1>
-            <p className="hero-kicker">{profile.hero.kicker}</p>
-            <p className="hero-intro">{profile.hero.intro}</p>
+            {!release ? <p className="hero-kicker">{profile.hero.kicker}</p> : null}
+            {!release ? <p className="hero-intro">{profile.hero.intro}</p> : null}
             <p className="hero-promise">{profile.hero.promise}</p>
-            <p className="hero-support">{profile.hero.support}</p>
+            {!release ? <p className="hero-support">{profile.hero.support}</p> : null}
 
-            <div className="hero-meta" aria-label="Опыт и формат работы">
+            {release ? <div className="hero-proofs" aria-label="Масштаб проектов">
+              {profile.hero.proofs.map((proof) => <span key={proof.label}><strong>{proof.value}</strong><small>{proof.label}</small></span>)}
+            </div> : <div className="hero-meta" aria-label="Опыт и формат работы">
               <span>{profile.hero.context}</span>
               <span>{profile.hero.format}</span>
-            </div>
+            </div>}
             <div className="hero-actions">
               <a className="button button-primary" href="#cases" data-analytics-event="hero_cases"><span>{profile.hero.primaryCta}</span><b aria-hidden="true">↘</b></a>
-              <a className="button button-secondary" href={contacts.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf"><span>{profile.hero.secondaryCta}</span><b aria-hidden="true">↓</b></a>
+              <a className={release ? "hero-resume-link" : "button button-secondary"} href={contacts.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf"><span>{profile.hero.secondaryCta}</span><b aria-hidden="true">↓</b></a>
             </div>
           </div>
 
           <Portrait />
-          <ProjectLogic concept={concept} polish={polish} />
+          {!release ? <ProjectLogic concept={concept} polish={polish} /> : null}
 
           <div className="hero-folio" aria-hidden="true">
             <span>PM / 2026</span>
@@ -454,18 +483,19 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
           </div>
         </section>
 
+        {release ? <ProjectFlowSection polish={polish} /> : null}
         <MethodSection />
+        {release ? <EditorialHook index={0} /> : null}
 
         <section className="case-index" id="cases" aria-labelledby="cases-title" data-motion-section>
-          <div className="section-number">03 / {profile.sectionLabels.cases}</div>
+          <SectionLabel>{profile.sectionLabels.cases}</SectionLabel>
           <div className="section-heading">
             <h2 id="cases-title">{profile.caseIndex.title}</h2>
             <p>{profile.caseIndex.intro}</p>
           </div>
           <div className="metric-grid">
-            {metrics.map((item, index) => (
+            {metrics.map((item) => (
               <a className="metric" href={`#${item.target}`} key={item.value} data-analytics-event={`case_${item.target}`}>
-                <span className="metric-index" aria-hidden="true">0{index + 1}</span>
                 <strong>{item.value}</strong>
                 <span className="metric-meta">{item.meta}</span>
                 <span className="metric-link">{item.link} →</span>
@@ -475,6 +505,7 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
         </section>
 
         {polish ? caseItems.map((item) => <CaseStudy item={item} polish={polish} key={item.id} />) : null}
+        {release ? <EditorialHook index={1} /> : null}
         <OtherProjectsSection />
         <ExperienceSection />
         <DetailsSection />
