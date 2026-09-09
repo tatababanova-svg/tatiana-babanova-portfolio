@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: seo.title,
   description: seo.description,
-  applicationName: "Татьяна Бабанова — Project Manager",
+  applicationName: "Татьяна Бабанова — менеджер проектов",
   authors: [{ name: "Татьяна Бабанова" }],
   creator: "Татьяна Бабанова",
   keywords: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     title: seo.title,
     description: seo.description,
-    siteName: "Татьяна Бабанова — Project Manager",
+    siteName: "Татьяна Бабанова — менеджер проектов",
   },
   twitter: {
     card: "summary",
