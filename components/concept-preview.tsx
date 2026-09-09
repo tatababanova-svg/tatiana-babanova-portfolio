@@ -133,9 +133,9 @@ function ProjectFlowSection({ polish }: { polish?: PolishId }) {
   return (
     <section className="project-flow-section" id="project-logic" aria-labelledby="project-flow-title" data-motion-section>
       <div className="project-flow-heading">
-        <SectionLabel>{profile.logic.sequenceLabel}</SectionLabel>
-        <h2 id="project-flow-title">Путь от задачи до принятого результата</h2>
-        <p>На каждом этапе есть понятный вопрос, решение и следующая точка контроля.</p>
+        <SectionLabel>РАБОЧИЙ КОНТУР</SectionLabel>
+        <h2 id="project-flow-title">СНАЧАЛА — КРИТЕРИИ. ПОТОМ — ИСПОЛНЕНИЕ</h2>
+        <p>До начала работ фиксирую ожидаемое изменение, владельца решения, неизменяемые ограничения и способ приёмки. Так у каждого этапа появляется проверяемый выход.</p>
       </div>
       <EditorialSequence polish={polish} />
     </section>
@@ -224,9 +224,8 @@ function CaseStudy({ item, polish }: { item: CaseItem; polish: PolishId }) {
         <div className="case-disclosure-body">
           {item.visual ? <BeforeAfterDiagram item={item} polish={polish} /> : (
             <div className="case-context-grid">
-              <article><h3>Контекст</h3><p>{item.context}</p></article>
-              <article><h3>Что было до</h3><p>{item.before}</p></article>
-              <article><h3>Диагностика</h3><p>{item.diagnosis}</p></article>
+              <article><h3>До вмешательства</h3><p>{item.before}</p></article>
+              <article><h3>Что показала диагностика</h3><p>{item.diagnosis}</p></article>
             </div>
           )}
 
@@ -241,9 +240,10 @@ function CaseStudy({ item, polish }: { item: CaseItem; polish: PolishId }) {
 
           <div className="case-process">
             <header>
-              <span>МЕХАНИЗМ РЕАЛИЗАЦИИ</span>
+              <span>ЧТО НЕ ВЫБРАНО</span>
               <p>{item.rejectedOrNotChosen}</p>
             </header>
+            <h3>Как решение было реализовано</h3>
             <ol>
               {item.implementation.map((step, index) => (
                 <li key={step}><small>{String(index + 1).padStart(2, "0")}</small><span>{step}</span></li>
@@ -252,9 +252,9 @@ function CaseStudy({ item, polish }: { item: CaseItem; polish: PolishId }) {
           </div>
 
           <div className="case-outcome">
-            <article><span>ПРИЁМКА</span><p>{item.acceptance}</p></article>
-            <article className="case-outcome-result"><span>РЕЗУЛЬТАТ</span><p>{item.result}</p></article>
-            <article><span>ПРИНЦИП УПРАВЛЕНИЯ</span><p>{item.managementPrinciple}</p></article>
+            <article><span>ПОЧЕМУ ЭТО РЕШЕНИЕ</span><p>{item.decisionRationale}</p></article>
+            <article className="case-outcome-result"><span>КАК ПРИНИМАЛИ РЕЗУЛЬТАТ</span><p>{item.acceptance}</p></article>
+            <article><span>ЕСЛИ БЫ МЕХАНИЗМ НЕ ИЗМЕНИЛИ</span><p>{item.counterfactual}</p></article>
           </div>
 
           <div className="proof-tags" aria-label="Подтверждаемые компетенции">
@@ -280,7 +280,6 @@ function Portrait() {
       </div>
       <figcaption>
         <span>{profile.hero.portraitCaption}</span>
-        <span aria-hidden="true">↗</span>
       </figcaption>
     </figure>
   );
@@ -302,7 +301,7 @@ function MethodSection() {
           </article>
         ))}
       </div>
-      <h3 className="method-subtitle">Как принимаю решения</h3>
+      <h3 className="method-subtitle">Шесть вопросов до старта работ</h3>
       <div className="question-grid">
         {profile.method.questions.map((item) => (
           <article className="question" key={item.question}>
@@ -320,8 +319,8 @@ function OtherProjectsSection() {
     <section className="other-projects" id="other-projects" aria-labelledby="other-projects-title" data-motion-section>
       <SectionLabel>{profile.sectionLabels.otherProjects}</SectionLabel>
       <div className="section-heading">
-        <h2 id="other-projects-title">ЕЩЁ ВОСЕМЬ ПРОЕКТНЫХ РЕШЕНИЙ</h2>
-        <p>Короткие примеры других задач. Откройте нужный проект, чтобы увидеть решение, риск и подтверждённый результат.</p>
+        <h2 id="other-projects-title">ЕЩЁ ВОСЕМЬ ПОДТВЕРЖДЁННЫХ РЕЗУЛЬТАТОВ</h2>
+        <p>Короткие разборы показывают масштаб, принятое решение и риск, который нельзя было оставить без управления.</p>
       </div>
       <div className="other-project-list">
         {otherProjects.map((item) => (
@@ -347,7 +346,7 @@ function ExperienceSection() {
     <section className="experience" id="experience" aria-labelledby="experience-title" data-motion-section>
       <SectionLabel>{profile.sectionLabels.experience}</SectionLabel>
       <div className="section-heading">
-        <h2 id="experience-title">КАК РОС МОЙ УРОВЕНЬ ОТВЕТСТВЕННОСТИ</h2>
+        <h2 id="experience-title">КАК РОСЛИ МАСШТАБ И СЛОЖНОСТЬ ЗАДАЧ</h2>
       </div>
       <div className="experience-list">
         {experience.map((item) => (
@@ -376,8 +375,8 @@ function DetailsSection() {
     <section className="details-section" id="details" aria-labelledby="details-title" data-motion-section>
       <SectionLabel>{profile.sectionLabels.details}</SectionLabel>
       <div className="section-heading">
-        <h2 id="details-title">ПРОФЕССИОНАЛЬНЫЙ КОНТУР</h2>
-        <p>Инструменты поддерживают решения и показаны внутри кейсов. Здесь — краткая справочная база.</p>
+        <h2 id="details-title">ЧЕМ ПОДКРЕПЛЯЮ УПРАВЛЕНЧЕСКИЕ РЕШЕНИЯ</h2>
+        <p>Использую инструменты для прозрачности потока, анализа вариантов, планирования зависимостей и проверки результата — а не как самоцель.</p>
       </div>
       <div className="details-grid">
         <article className="tools-panel">
@@ -434,7 +433,6 @@ export function ConceptPreview({ concept, polish, motion, release = false }: { c
     >
       {motion ? <MotionController motion={motion} /> : null}
       <header className="site-nav">
-        <a className="site-name" href="#top">{profile.navigation[0]}</a>
         <nav className="desktop-nav" aria-label="Основная навигация">
           {profile.navigation.slice(1).map((item, index) => (
             <a key={item} href={`#${navTargets[index + 1]}`}>{item}</a>
