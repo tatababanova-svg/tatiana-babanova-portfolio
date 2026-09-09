@@ -27,7 +27,10 @@ function SiteHeader() {
 
   return (
     <header className="approved-nav">
-      <a className="approved-nav-name" href="#top" aria-label="К началу страницы">ТБ</a>
+      <a className="approved-nav-name" href="#top" aria-label="Татьяна Бабанова — к началу страницы">
+        <span>Татьяна Бабанова</span>
+        <small>Менеджер проектов</small>
+      </a>
       <nav className="approved-desktop-nav" aria-label="Основная навигация">
         {landing.navigation.map((item) => (
           <a href={`#${item.target}`} key={item.target}>{item.label}</a>
@@ -362,16 +365,44 @@ function ContactSection() {
       </div>
 
       <div className="approved-contact-action">
-        <h3>{contact.ctaTitle}</h3>
-        <a className="approved-button approved-button-light" href={contact.emailHref} data-analytics-event="contact_email">{contact.cta}</a>
+        <div>
+          <span className="approved-contact-kicker">Открыта к новым проектам</span>
+          <h3>{contact.ctaTitle}</h3>
+        </div>
+        <a
+          className="approved-button approved-button-light"
+          href={contact.telegramHref}
+          target="_blank"
+          rel="noreferrer"
+          data-analytics-event="contact_telegram"
+        >
+          {contact.cta} <span aria-hidden="true">↗</span>
+        </a>
       </div>
 
       <address className="approved-contact-details">
-        <a href={contact.phoneHref} data-analytics-event="contact_phone">{contact.phone}</a>
-        <a href={contact.emailHref} data-analytics-event="contact_email">{contact.email}</a>
-        <span>{contact.location}</span>
-        <a id="pdf" href={contact.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">{contact.resumeCta} <span aria-hidden="true">↗</span></a>
+        <div>
+          <span>Телефон</span>
+          <a href={contact.phoneHref} data-analytics-event="contact_phone">{contact.phone}</a>
+        </div>
+        <div>
+          <span>Почта</span>
+          <a href={contact.emailHref} data-analytics-event="contact_email">{contact.email}</a>
+        </div>
+        <div>
+          <span>Формат работы</span>
+          <p>{contact.location}</p>
+        </div>
+        <a className="approved-contact-resume" id="pdf" href={contact.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">{contact.resumeCta} <span aria-hidden="true">↗</span></a>
       </address>
+
+      <div className="approved-footer-signature">
+        <div>
+          <strong>Татьяна Бабанова</strong>
+          <span>Менеджер проектов · Москва</span>
+        </div>
+        <a href="#top">Наверх <span aria-hidden="true">↑</span></a>
+      </div>
     </footer>
   );
 }
