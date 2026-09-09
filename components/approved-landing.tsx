@@ -44,6 +44,13 @@ function HeroSection() {
 
   return (
     <section className="approved-hero" id="top" aria-labelledby="approved-hero-title">
+      <svg className="approved-hero-route" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M24 488C172 424 201 123 426 155C659 188 628 520 846 477C997 448 1017 207 1170 128" />
+        <circle cx="24" cy="488" r="9" />
+        <circle cx="426" cy="155" r="9" />
+        <circle cx="846" cy="477" r="9" />
+        <path className="approved-hero-route-arrow" d="m1140 111 30 17-25 24" />
+      </svg>
       <div className="approved-hero-grid">
         <div className="approved-hero-role">
           <p className="approved-hero-name">{hero.name}</p>
@@ -57,6 +64,7 @@ function HeroSection() {
         </div>
 
         <figure className="approved-portrait">
+          <span className="approved-portrait-spark" aria-hidden="true" />
           <div className="approved-portrait-frame">
             <Image
               src={hero.portraitSrc}
@@ -371,6 +379,7 @@ function ContactSection() {
 export function ApprovedLanding() {
   return (
     <div className="approved-site motion motion-c" data-motion="c">
+      <div className="approved-ambient-grid" aria-hidden="true" />
       <MotionController motion="c" />
       <SiteHeader />
       <main>
