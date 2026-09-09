@@ -175,6 +175,23 @@ const caseFields: Field[] = [
 ];
 
 const models: Model[] = [
+  {
+    name: "Landing",
+    label: "Лендинг — утверждённая версия",
+    type: "data",
+    filePath: "content/landing.json",
+    singleInstance: true,
+    fields: [
+      { name: "navigation", label: "Навигация", type: "json" },
+      { name: "hero", label: "Экран 01 — первый экран", type: "json" },
+      { name: "results", label: "Экран 02 — результаты", type: "json" },
+      { name: "method", label: "Экран 03 — как работаю", type: "json" },
+      { name: "cases", label: "Экран 04 — кейсы", type: "json" },
+      { name: "experience", label: "Экран 05 — опыт", type: "json" },
+      { name: "details", label: "Экран 06 — профессиональные сведения", type: "json" },
+      { name: "contact", label: "Экран 07 — контакты", type: "json" },
+    ],
+  },
   profileModel,
   {
     name: "Metrics",
