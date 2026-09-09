@@ -44,12 +44,9 @@ function HeroSection() {
 
   return (
     <section className="approved-hero" id="top" aria-labelledby="approved-hero-title">
-      <div className="approved-hero-meta">
-        <strong>{hero.name}</strong>
-      </div>
-
       <div className="approved-hero-grid">
         <div className="approved-hero-role">
+          <p className="approved-hero-name">{hero.name}</p>
           <h1 id="approved-hero-title" aria-label="Профиль Project Manager">
             <span>PROJECT</span>
             <span>MANAGER</span>
@@ -98,7 +95,6 @@ function HeroSection() {
         <a className="approved-text-link" href={landing.contact.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">
           {hero.secondaryCta} <span aria-hidden="true">↗</span>
         </a>
-        <p>{hero.location}</p>
       </div>
     </section>
   );
@@ -160,7 +156,10 @@ function MethodSection() {
       <ol className="approved-method-steps">
         {method.steps.map((step) => (
           <li key={step.number}>
-            <div className="approved-step-number"><span>{step.number}</span></div>
+            <div className="approved-step-number">
+              <span aria-hidden="true">→</span>
+              <span className="approved-step-sr">Этап {step.number}</span>
+            </div>
             <h3>{step.title}</h3>
             <p><InlineEmphasis text={step.text} phrase={"emphasis" in step ? step.emphasis : undefined} /></p>
             {step.note ? <strong>{step.note}</strong> : null}
