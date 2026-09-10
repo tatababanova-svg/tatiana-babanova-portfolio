@@ -17,7 +17,13 @@ export function MotionController({ motion }: { motion: MotionId }) {
     const kineticItems = Array.from(scope.querySelectorAll<HTMLElement>(
       "h1, .approved-display",
     ));
+    const cursor = scope.querySelector<HTMLElement>(".approved-cursor");
+    const cursorTargets = Array.from(scope.querySelectorAll<HTMLElement>("a, button, summary, .approved-result, .approved-case"));
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     let kineticFrame = 0;
+    let cursorFrame = 0;
+    let cursorX = 0;
+    let cursorY = 0;
 
     const revealAll = () => {
       revealItems.forEach((item) => item.classList.add("is-visible"));
@@ -42,8 +48,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
             const distance = ((rect.top + rect.height / 2) - viewportCenter) / Math.max(window.innerHeight, 1);
             const clamped = Math.max(-1, Math.min(1, distance));
             const direction = index % 2 === 0 ? 1 : -1;
-            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 12).toFixed(2)}px`);
-            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -7).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 28).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -14).toFixed(2)}px`);
           });
           kineticFrame = 0;
         });
@@ -62,8 +68,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
         const rect = item.getBoundingClientRect();
         const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
         const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
-        item.style.setProperty("--kinetic-hover-x", `${(x * 20).toFixed(2)}px`);
-        item.style.setProperty("--kinetic-hover-y", `${(y * 10).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-x", `${(x * 70).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-y", `${(y * 34).toFixed(2)}px`);
         item.classList.add("is-kinetic-hovered");
       };
       const leave = () => {
@@ -80,14 +86,48 @@ export function MotionController({ motion }: { motion: MotionId }) {
       };
     });
 
+    const moveCursor = (event: PointerEvent) => {
+      if (!cursor || !finePointer) return;
+      cursorX = event.clientX;
+      cursorY = event.clientY;
+      scope.style.setProperty("--pointer-x", `${(cursorX / Math.max(window.innerWidth, 1)) * 100}%`);
+      scope.style.setProperty("--pointer-y", `${(cursorY / Math.max(window.innerHeight, 1)) * 100}%`);
+      if (cursorFrame) return;
+      cursorFrame = window.requestAnimationFrame(() => {
+        cursor.style.setProperty("--cursor-x", `${cursorX}px`);
+        cursor.style.setProperty("--cursor-y", `${cursorY}px`);
+        cursor.classList.add("is-visible");
+        cursorFrame = 0;
+      });
+    };
+    const hideCursor = () => cursor?.classList.remove("is-visible");
+    const cursorTargetCleanups = cursorTargets.map((target) => {
+      const enter = () => cursor?.classList.add("is-active");
+      const leave = () => cursor?.classList.remove("is-active");
+      target.addEventListener("pointerenter", enter);
+      target.addEventListener("pointerleave", leave);
+      return () => {
+        target.removeEventListener("pointerenter", enter);
+        target.removeEventListener("pointerleave", leave);
+      };
+    });
+    if (finePointer) {
+      window.addEventListener("pointermove", moveCursor, { passive: true });
+      document.documentElement.addEventListener("mouseleave", hideCursor);
+    }
+
     if (reducedMotion || !("IntersectionObserver" in window)) {
       scope.classList.add("motion-reduced");
       revealAll();
 
       return () => {
         kineticCleanups.forEach((cleanup) => cleanup());
+        cursorTargetCleanups.forEach((cleanup) => cleanup());
         if (kineticFrame) window.cancelAnimationFrame(kineticFrame);
+        if (cursorFrame) window.cancelAnimationFrame(cursorFrame);
         window.removeEventListener("scroll", updateProgress);
+        window.removeEventListener("pointermove", moveCursor);
+        document.documentElement.removeEventListener("mouseleave", hideCursor);
       };
     }
 
@@ -125,10 +165,14 @@ export function MotionController({ motion }: { motion: MotionId }) {
 
     return () => {
       kineticCleanups.forEach((cleanup) => cleanup());
+      cursorTargetCleanups.forEach((cleanup) => cleanup());
       if (kineticFrame) window.cancelAnimationFrame(kineticFrame);
+      if (cursorFrame) window.cancelAnimationFrame(cursorFrame);
       revealObserver.disconnect();
       sectionObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("pointermove", moveCursor);
+      document.documentElement.removeEventListener("mouseleave", hideCursor);
     };
   }, [motion]);
 

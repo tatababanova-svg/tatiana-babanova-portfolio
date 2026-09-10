@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import landing from "@/content/landing.json";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { MotionController } from "@/components/motion-controller";
@@ -23,6 +24,53 @@ function InlineEmphasis({ text, phrase }: { text: string; phrase?: string }) {
   if (!phrase || !text.includes(phrase)) return <>{text}</>;
   const [before, after] = text.split(phrase);
   return <>{before}<strong>{phrase}</strong>{after}</>;
+}
+
+function HeroFlow() {
+  const steps = ["Задача", "Требования", "План", "Исполнение", "Результат"];
+
+  return (
+    <div className="approved-flow-widget" aria-label="Проектный путь" data-hero-motion>
+      {steps.map((step, index) => (
+        <span key={step} style={{ "--flow-index": index } as CSSProperties}>
+          {step}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function CaseMotionWidget({ number }: { number: string }) {
+  if (number === "01") {
+    return (
+      <div className="approved-case-widget approved-cost-widget" aria-hidden="true">
+        <span><i />300</span>
+        <span><i />65</span>
+      </div>
+    );
+  }
+
+  if (number === "02") {
+    return (
+      <div className="approved-case-widget approved-migration-widget" aria-hidden="true">
+        <span /><i /><span /><i /><span />
+      </div>
+    );
+  }
+
+  if (number === "03") {
+    return (
+      <div className="approved-case-widget approved-deadline-widget" aria-hidden="true">
+        <span>−14</span><i /><b>0</b>
+      </div>
+    );
+  }
+
+  return (
+    <div className="approved-case-widget approved-parallel-widget" aria-hidden="true">
+      <span><i /></span><span><i /></span><span><i /></span>
+    </div>
+  );
 }
 
 function SiteHeader() {
@@ -60,6 +108,7 @@ function HeroSection() {
           <h1 id="approved-hero-title" data-hero-motion>{withoutTrailingPeriod(hero.title)}</h1>
           <p className="approved-hero-lead" data-hero-motion>{hero.lead}</p>
           <p className="approved-hero-statement" data-hero-motion>{hero.statement}</p>
+          <HeroFlow />
           <div className="approved-hero-actions" data-hero-motion>
             <a className="approved-button approved-button-primary" href="#cases" data-analytics-event="hero_cases">
               {hero.primaryCta}
@@ -183,6 +232,7 @@ function CasesSection() {
         {cases.items.map((item) => (
           <article className="approved-case" data-reveal key={item.number}>
             <div className="approved-case-visual" aria-hidden="true">
+              <CaseMotionWidget number={item.number} />
               <div className="approved-case-highlight">
                 {item.headline.map((line) => <strong key={line}>{line}</strong>)}
                 {item.project ? <p>{item.project}</p> : null}
@@ -364,6 +414,7 @@ export function ApprovedLanding() {
   return (
     <div className="approved-site approved-modern" data-motion="c">
       <MotionController motion="c" />
+      <div className="approved-cursor" aria-hidden="true"><span /></div>
       <SiteHeader />
       <main>
         <HeroSection />
