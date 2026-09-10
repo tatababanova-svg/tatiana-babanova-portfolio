@@ -14,6 +14,10 @@ export function MotionController({ motion }: { motion: MotionId }) {
     const heroItems = Array.from(scope.querySelectorAll<HTMLElement>("[data-hero-motion]"));
     const sections = Array.from(scope.querySelectorAll<HTMLElement>("[data-motion-section]"));
     const navLinks = Array.from(scope.querySelectorAll<HTMLAnchorElement>("[data-nav-target]"));
+    const kineticItems = Array.from(scope.querySelectorAll<HTMLElement>(
+      "h1, h2, h3, h4, p, blockquote, .approved-result-accent, .approved-case-highlight strong, .approved-case-metrics strong, .approved-case-facts strong, .approved-experience-period",
+    ));
+    let kineticFrame = 0;
 
     const revealAll = () => {
       revealItems.forEach((item) => item.classList.add("is-visible"));
@@ -28,6 +32,22 @@ export function MotionController({ motion }: { motion: MotionId }) {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
       scope.style.setProperty("--scroll-progress", String(progress));
+
+      if (!reducedMotion && !kineticFrame) {
+        kineticFrame = window.requestAnimationFrame(() => {
+          const viewportCenter = window.innerHeight / 2;
+          kineticItems.forEach((item, index) => {
+            const rect = item.getBoundingClientRect();
+            if (rect.bottom < -80 || rect.top > window.innerHeight + 80) return;
+            const distance = ((rect.top + rect.height / 2) - viewportCenter) / Math.max(window.innerHeight, 1);
+            const clamped = Math.max(-1, Math.min(1, distance));
+            const direction = index % 2 === 0 ? 1 : -1;
+            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 5).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -9).toFixed(2)}px`);
+          });
+          kineticFrame = 0;
+        });
+      }
     };
 
     updateProgress();
@@ -41,11 +61,40 @@ export function MotionController({ motion }: { motion: MotionId }) {
     };
     window.addEventListener("pointermove", updatePointer, { passive: true });
 
+    const kineticCleanups = kineticItems.map((item, index) => {
+      item.classList.add("approved-kinetic-text");
+      item.style.setProperty("--kinetic-index", String(index));
+
+      const move = (event: PointerEvent) => {
+        if (reducedMotion) return;
+        const rect = item.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
+        const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
+        item.style.setProperty("--kinetic-hover-x", `${(x * 13).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-y", `${(y * 8).toFixed(2)}px`);
+        item.classList.add("is-kinetic-hovered");
+      };
+      const leave = () => {
+        item.style.setProperty("--kinetic-hover-x", "0px");
+        item.style.setProperty("--kinetic-hover-y", "0px");
+        item.classList.remove("is-kinetic-hovered");
+      };
+
+      item.addEventListener("pointermove", move, { passive: true });
+      item.addEventListener("pointerleave", leave);
+      return () => {
+        item.removeEventListener("pointermove", move);
+        item.removeEventListener("pointerleave", leave);
+      };
+    });
+
     if (reducedMotion || !("IntersectionObserver" in window)) {
       scope.classList.add("motion-reduced");
       revealAll();
 
       return () => {
+        kineticCleanups.forEach((cleanup) => cleanup());
+        if (kineticFrame) window.cancelAnimationFrame(kineticFrame);
         window.removeEventListener("scroll", updateProgress);
         window.removeEventListener("pointermove", updatePointer);
       };
@@ -84,6 +133,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
     sections.forEach((section) => sectionObserver.observe(section));
 
     return () => {
+      kineticCleanups.forEach((cleanup) => cleanup());
+      if (kineticFrame) window.cancelAnimationFrame(kineticFrame);
       revealObserver.disconnect();
       sectionObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);

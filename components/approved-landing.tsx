@@ -52,12 +52,6 @@ function HeroSection() {
   return (
     <section className="approved-hero" id="top" aria-labelledby="approved-hero-title">
       <div className="approved-hero-shell">
-        <div className="approved-hero-rail" aria-hidden="true">
-          <span>Задача</span>
-          <i /><i /><i /><i />
-          <b>Результат</b>
-        </div>
-
         <div className="approved-hero-copy">
           <p className="approved-hero-name" data-hero-motion>{hero.name}</p>
           <p className="approved-hero-role-label" data-hero-motion>{hero.role}</p>
@@ -94,7 +88,6 @@ function HeroSection() {
           </div>
           <figcaption>
             <strong>{hero.experience}</strong>
-            <span>{hero.location}</span>
           </figcaption>
           <div className="approved-portrait-status" aria-hidden="true">
             <i /> Проектный контур собран
@@ -238,20 +231,23 @@ function CasesSection() {
       <div className="approved-case-list">
         {cases.items.map((item, index) => (
           <article className="approved-case" data-reveal key={item.number}>
-            <header className="approved-case-head">
-              <span className="approved-case-number approved-numeric">{item.number}</span>
-              <div>
-                <p className="approved-case-tags">{item.tags}</p>
-                <h3>{item.title}</h3>
-              </div>
+            <div className="approved-case-visual" aria-hidden="true">
               <CaseSignal index={index} />
-            </header>
-
-            <div className="approved-case-body">
               <div className="approved-case-highlight">
                 {item.headline.map((line) => <strong key={line}>{line}</strong>)}
                 {item.project ? <p>{item.project}</p> : null}
               </div>
+            </div>
+
+            <div className="approved-case-content">
+              <header className="approved-case-head">
+                <span className="approved-case-number approved-numeric">{item.number}</span>
+                <div>
+                  <p className="approved-case-tags">{item.tags}</p>
+                  <h3>{item.title}</h3>
+                </div>
+              </header>
+
               <div className="approved-case-sections">
                 {item.sections.map((section) => (
                   <div key={section.label}>
@@ -260,32 +256,33 @@ function CasesSection() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="approved-case-result">
-              <h4>Результат</h4>
-              {item.resultFacts && !("metricsFirst" in item && item.metricsFirst) ? (
-                <div className="approved-case-facts">
-                  {item.resultFacts.map((fact) => <strong key={fact}>{fact}</strong>)}
+              <div className="approved-case-result">
+                <h4>Результат</h4>
+                <div className="approved-case-result-content">
+                  {item.resultFacts && !("metricsFirst" in item && item.metricsFirst) ? (
+                    <div className="approved-case-facts">
+                      {item.resultFacts.map((fact) => <strong key={fact}>{fact}</strong>)}
+                    </div>
+                  ) : null}
+                  {item.results.length ? (
+                    <div className="approved-case-metrics">
+                      {item.results.map((result) => (
+                        <p key={result.value}><strong className={/\d/.test(result.value) ? "approved-numeric" : undefined}>{result.value}</strong>{"label" in result && result.label ? <span>{result.label}</span> : null}</p>
+                      ))}
+                    </div>
+                  ) : null}
+                  {item.resultFacts && "metricsFirst" in item && item.metricsFirst ? (
+                    <div className="approved-case-facts">
+                      {item.resultFacts.map((fact) => <strong key={fact}>{fact}</strong>)}
+                    </div>
+                  ) : null}
+                  {item.resultNotes ? (
+                    <div className="approved-case-notes">
+                      {item.resultNotes.map((note) => <p key={note}>{note}</p>)}
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
-              {item.results.length ? (
-                <div className="approved-case-metrics">
-                  {item.results.map((result) => (
-                    <p key={result.value}><strong className={/\d/.test(result.value) ? "approved-numeric" : undefined}>{result.value}</strong>{"label" in result && result.label ? <span>{result.label}</span> : null}</p>
-                  ))}
-                </div>
-              ) : null}
-              {item.resultFacts && "metricsFirst" in item && item.metricsFirst ? (
-                <div className="approved-case-facts">
-                  {item.resultFacts.map((fact) => <strong key={fact}>{fact}</strong>)}
-                </div>
-              ) : null}
-              {item.resultNotes ? (
-                <div className="approved-case-notes">
-                  {item.resultNotes.map((note) => <p key={note}>{note}</p>)}
-                </div>
-              ) : null}
+              </div>
             </div>
           </article>
         ))}

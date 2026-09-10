@@ -24,23 +24,7 @@ export function ResultSignal({ index }: { index: number }) {
     );
   }
 
-  if (index === 1) {
-    return (
-      <div className="result-signal result-signal-flow" role="img" aria-label="Пять подразделений прошли миграцию без остановок и потерь">
-        <span className="signal-source" />
-        <i /><i /><i /><i /><i />
-        <span className="signal-target">0</span>
-      </div>
-    );
-  }
-
-  if (index === 2) {
-    return (
-      <div className="result-signal result-signal-deadline" role="img" aria-label="Требования изменились, но фиксированная дата запуска была сохранена">
-        <span>Изменение</span><i /><i /><i /><b>Запуск</b>
-      </div>
-    );
-  }
+  if (index === 1 || index === 2) return null;
 
   return (
     <div className="result-signal result-signal-network" role="img" aria-label="До семнадцати участников объединены в один проектный контур">
@@ -52,11 +36,20 @@ export function ResultSignal({ index }: { index: number }) {
 
 export function CaseSignal({ index }: { index: number }) {
   const names = ["Снижение затрат", "Безопасная миграция", "Фиксированный срок", "Параллельные запуски"];
+  const metrics = ["−78%", "0 потерь", "В срок", "3 / 90"];
   return (
     <div className={`case-signal case-signal-${index + 1}`} role="img" aria-label={names[index]}>
-      <span className="case-signal-line" />
-      <i /><i /><i /><i />
-      <b>{index === 0 ? "−78%" : index === 1 ? "0 потерь" : index === 2 ? "В срок" : "3 / 90"}</b>
+      <svg viewBox="0 0 320 260" aria-hidden="true">
+        <circle className="case-signal-orbit case-signal-orbit-outer" cx="160" cy="130" r="104" />
+        <circle className="case-signal-orbit case-signal-orbit-inner" cx="160" cy="130" r="66" />
+        <path className="case-signal-route" d="M45 166 C92 51 189 218 275 92" />
+        <circle className="case-signal-node case-signal-node-1" cx="45" cy="166" r="7" />
+        <circle className="case-signal-node case-signal-node-2" cx="160" cy="130" r="7" />
+        <circle className="case-signal-node case-signal-node-3" cx="275" cy="92" r="7" />
+        <circle className="case-signal-runner" cx="45" cy="166" r="10" />
+      </svg>
+      <span>{names[index]}</span>
+      <b>{metrics[index]}</b>
     </div>
   );
 }
