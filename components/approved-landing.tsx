@@ -28,9 +28,12 @@ function SiteHeader() {
 
   return (
     <header className="approved-nav">
-      <a className="approved-nav-name" href="#top" aria-label="Татьяна Бабанова — к началу страницы">
-        <span>Татьяна Бабанова</span>
-        <small>Менеджер проектов</small>
+      <a className="approved-nav-mark" href="#top" aria-label="К началу страницы">
+        <svg viewBox="0 0 44 44" aria-hidden="true">
+          <circle cx="22" cy="22" r="20" />
+          <path d="M12 27C17 16 25 30 32 16" />
+          <path d="m27 17 5-1-1 5" />
+        </svg>
       </a>
       <nav className="approved-desktop-nav" aria-label="Основная навигация">
         {landing.navigation.map((item) => (
@@ -49,6 +52,12 @@ function HeroSection() {
   return (
     <section className="approved-hero" id="top" aria-labelledby="approved-hero-title">
       <div className="approved-hero-shell">
+        <div className="approved-hero-rail" aria-hidden="true">
+          <span>Задача</span>
+          <i /><i /><i /><i />
+          <b>Результат</b>
+        </div>
+
         <div className="approved-hero-copy">
           <p className="approved-hero-name" data-hero-motion>{hero.name}</p>
           <p className="approved-hero-role-label" data-hero-motion>{hero.role}</p>
@@ -68,6 +77,12 @@ function HeroSection() {
 
         <figure className="approved-portrait" data-hero-motion>
           <div className="approved-portrait-halo" aria-hidden="true" />
+          <div className="approved-portrait-radar" aria-hidden="true">
+            <span>Сроки</span>
+            <span>Бюджет</span>
+            <span>Риски</span>
+            <span>Приёмка</span>
+          </div>
           <div className="approved-portrait-frame">
             <Image
               src={hero.portraitSrc}
@@ -81,6 +96,9 @@ function HeroSection() {
             <strong>{hero.experience}</strong>
             <span>{hero.location}</span>
           </figcaption>
+          <div className="approved-portrait-status" aria-hidden="true">
+            <i /> Проектный контур собран
+          </div>
         </figure>
 
         <ProjectRouteWidget />
@@ -98,6 +116,23 @@ function HeroSection() {
             <span>{stat.label}</span>
           </article>
         ))}
+      </div>
+
+      <div className="approved-hero-ticker" aria-hidden="true">
+        <div>
+          <span>СРОКИ</span><i />
+          <span>БЮДЖЕТ</span><i />
+          <span>РИСКИ</span><i />
+          <span>ЗАВИСИМОСТИ</span><i />
+          <span>КАЧЕСТВО</span><i />
+          <span>ПРИЁМКА</span><i />
+          <span>СРОКИ</span><i />
+          <span>БЮДЖЕТ</span><i />
+          <span>РИСКИ</span><i />
+          <span>ЗАВИСИМОСТИ</span><i />
+          <span>КАЧЕСТВО</span><i />
+          <span>ПРИЁМКА</span><i />
+        </div>
       </div>
     </section>
   );
