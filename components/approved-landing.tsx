@@ -2,7 +2,10 @@ import Image from "next/image";
 import landing from "@/content/landing.json";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { MotionController } from "@/components/motion-controller";
-import { CaseSignal, ProjectRouteWidget, ResultSignal } from "@/components/active-widgets";
+
+function withoutTrailingPeriod(text: string) {
+  return text.replace(/\.$/, "");
+}
 
 function Eyebrow({ children }: { children: string }) {
   return <p className="approved-eyebrow">{children}</p>;
@@ -11,7 +14,7 @@ function Eyebrow({ children }: { children: string }) {
 function DisplayTitle({ id, lines }: { id: string; lines: string[] }) {
   return (
     <h2 className="approved-display" id={id}>
-      {lines.map((line) => <span key={line}>{line}</span>)}
+      {lines.map((line) => <span key={line}>{withoutTrailingPeriod(line)}</span>)}
     </h2>
   );
 }
@@ -28,9 +31,9 @@ function SiteHeader() {
 
   return (
     <header className="approved-nav">
-      <a className="approved-nav-mark" href="#top" aria-label="К началу страницы">
-        <span>ТБ</span>
-        <i aria-hidden="true" />
+      <a className="approved-nav-context" href="#top" aria-label="К началу страницы">
+        <span>УПРАВЛЕНИЕ ПРОЕКТАМИ</span>
+        <small>ПОРТФОЛИО · 2026</small>
       </a>
       <nav className="approved-desktop-nav" aria-label="Основная навигация">
         {landing.navigation.map((item) => (
@@ -58,7 +61,7 @@ function HeroSection() {
 
         <div className="approved-hero-copy">
           <p className="approved-hero-role-label" data-hero-motion>{hero.role}</p>
-          <h1 id="approved-hero-title" data-hero-motion>{hero.title}</h1>
+          <h1 id="approved-hero-title" data-hero-motion>{withoutTrailingPeriod(hero.title)}</h1>
           <p className="approved-hero-specialization" data-hero-motion>{hero.specialization}</p>
           <p className="approved-hero-lead" data-hero-motion>{hero.lead}</p>
           <p className="approved-hero-statement" data-hero-motion>{hero.statement}</p>
@@ -73,13 +76,6 @@ function HeroSection() {
         </div>
 
         <figure className="approved-portrait" data-hero-motion>
-          <div className="approved-portrait-halo" aria-hidden="true" />
-          <div className="approved-portrait-radar" aria-hidden="true">
-            <span>Сроки</span>
-            <span>Бюджет</span>
-            <span>Риски</span>
-            <span>Приёмка</span>
-          </div>
           <div className="approved-portrait-frame">
             <Image
               src={hero.portraitSrc}
@@ -92,12 +88,7 @@ function HeroSection() {
           <figcaption>
             <strong>{hero.experience}</strong>
           </figcaption>
-          <div className="approved-portrait-status" aria-hidden="true">
-            <i /> Проектный контур собран
-          </div>
         </figure>
-
-        <ProjectRouteWidget />
       </div>
 
       <div className="approved-hero-proof" data-reveal>
@@ -151,12 +142,9 @@ function ResultsSection() {
               <strong className={`approved-result-accent${/\d/.test(item.accent) ? " approved-numeric" : ""}`}>{item.accent}</strong>
               <h3>{item.title}</h3>
               {item.intro ? <p>{item.intro}</p> : null}
-              {"detailsBeforePrimary" in item && item.detailsBeforePrimary ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
               {item.primary ? <p className="approved-result-primary">{item.primary}</p> : null}
-              {!("detailsBeforePrimary" in item && item.detailsBeforePrimary) ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
               {item.secondary ? <p className="approved-result-secondary">{item.secondary}</p> : null}
             </div>
-            <ResultSignal index={index} />
           </article>
         ))}
       </div>
@@ -232,10 +220,9 @@ function CasesSection() {
       </div>
 
       <div className="approved-case-list">
-        {cases.items.map((item, index) => (
+        {cases.items.map((item) => (
           <article className="approved-case" data-reveal key={item.number}>
             <div className="approved-case-visual" aria-hidden="true">
-              <CaseSignal index={index} />
               <div className="approved-case-highlight">
                 {item.headline.map((line) => <strong key={line}>{line}</strong>)}
                 {item.project ? <p>{item.project}</p> : null}
@@ -438,8 +425,6 @@ function ContactSection() {
 export function ApprovedLanding() {
   return (
     <div className="approved-site approved-modern" data-motion="c">
-      <div className="approved-ambient-grid" aria-hidden="true" />
-      <div className="approved-cursor" aria-hidden="true"><span /></div>
       <MotionController motion="c" />
       <SiteHeader />
       <main>

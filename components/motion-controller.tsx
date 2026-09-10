@@ -15,7 +15,7 @@ export function MotionController({ motion }: { motion: MotionId }) {
     const sections = Array.from(scope.querySelectorAll<HTMLElement>("[data-motion-section]"));
     const navLinks = Array.from(scope.querySelectorAll<HTMLAnchorElement>("[data-nav-target]"));
     const kineticItems = Array.from(scope.querySelectorAll<HTMLElement>(
-      "h1, h2, h3, h4, p, blockquote, .approved-result-accent, .approved-case-highlight strong, .approved-case-metrics strong, .approved-case-facts strong, .approved-experience-period",
+      "h1, .approved-display, .approved-result-accent, .approved-case-highlight strong",
     ));
     let kineticFrame = 0;
 
@@ -42,8 +42,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
             const distance = ((rect.top + rect.height / 2) - viewportCenter) / Math.max(window.innerHeight, 1);
             const clamped = Math.max(-1, Math.min(1, distance));
             const direction = index % 2 === 0 ? 1 : -1;
-            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 28).toFixed(2)}px`);
-            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -44).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 12).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -7).toFixed(2)}px`);
           });
           kineticFrame = 0;
         });
@@ -52,21 +52,6 @@ export function MotionController({ motion }: { motion: MotionId }) {
 
     updateProgress();
     window.addEventListener("scroll", updateProgress, { passive: true });
-
-    const updatePointer = (event: PointerEvent) => {
-      const x = event.clientX / Math.max(window.innerWidth, 1) - 0.5;
-      const y = event.clientY / Math.max(window.innerHeight, 1) - 0.5;
-      scope.style.setProperty("--pointer-x", x.toFixed(3));
-      scope.style.setProperty("--pointer-y", y.toFixed(3));
-      scope.style.setProperty("--cursor-x", `${event.clientX}px`);
-      scope.style.setProperty("--cursor-y", `${event.clientY}px`);
-      scope.classList.add("cursor-visible");
-      const target = event.target instanceof Element ? event.target : null;
-      scope.classList.toggle("cursor-interactive", Boolean(target?.closest("a, button, summary")));
-    };
-    window.addEventListener("pointermove", updatePointer, { passive: true });
-    const hideCursor = () => scope.classList.remove("cursor-visible", "cursor-interactive");
-    document.documentElement.addEventListener("mouseleave", hideCursor);
 
     const kineticCleanups = kineticItems.map((item, index) => {
       item.classList.add("approved-kinetic-text");
@@ -77,8 +62,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
         const rect = item.getBoundingClientRect();
         const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
         const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
-        item.style.setProperty("--kinetic-hover-x", `${(x * 80).toFixed(2)}px`);
-        item.style.setProperty("--kinetic-hover-y", `${(y * 48).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-x", `${(x * 20).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-y", `${(y * 10).toFixed(2)}px`);
         item.classList.add("is-kinetic-hovered");
       };
       const leave = () => {
@@ -103,8 +88,6 @@ export function MotionController({ motion }: { motion: MotionId }) {
         kineticCleanups.forEach((cleanup) => cleanup());
         if (kineticFrame) window.cancelAnimationFrame(kineticFrame);
         window.removeEventListener("scroll", updateProgress);
-        window.removeEventListener("pointermove", updatePointer);
-        document.documentElement.removeEventListener("mouseleave", hideCursor);
       };
     }
 
@@ -146,8 +129,6 @@ export function MotionController({ motion }: { motion: MotionId }) {
       revealObserver.disconnect();
       sectionObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("pointermove", updatePointer);
-      document.documentElement.removeEventListener("mouseleave", hideCursor);
     };
   }, [motion]);
 
