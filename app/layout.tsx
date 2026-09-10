@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
 import seo from "@/content/seo.json";
 import "./globals.css";
+import "./approved-modern.css";
 
 export const metadata: Metadata = {
   title: seo.title,

@@ -2,6 +2,7 @@ import Image from "next/image";
 import landing from "@/content/landing.json";
 import { MobileNavigation } from "@/components/mobile-navigation";
 import { MotionController } from "@/components/motion-controller";
+import { CaseSignal, ProjectRouteWidget, ResultSignal } from "@/components/active-widgets";
 
 function Eyebrow({ children }: { children: string }) {
   return <p className="approved-eyebrow">{children}</p>;
@@ -33,7 +34,7 @@ function SiteHeader() {
       </a>
       <nav className="approved-desktop-nav" aria-label="Основная навигация">
         {landing.navigation.map((item) => (
-          <a href={`#${item.target}`} key={item.target}>{item.label}</a>
+          <a href={`#${item.target}`} data-nav-target={item.target} key={item.target}>{item.label}</a>
         ))}
       </nav>
       <MobileNavigation items={items} targets={targets} />
@@ -47,65 +48,56 @@ function HeroSection() {
 
   return (
     <section className="approved-hero" id="top" aria-labelledby="approved-hero-title">
-      <svg className="approved-hero-route" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M24 488C172 424 201 123 426 155C659 188 628 520 846 477C997 448 1017 207 1170 128" />
-        <circle cx="24" cy="488" r="9" />
-        <circle cx="426" cy="155" r="9" />
-        <circle cx="846" cy="477" r="9" />
-        <path className="approved-hero-route-arrow" d="m1140 111 30 17-25 24" />
-      </svg>
-      <div className="approved-hero-grid">
-        <div className="approved-hero-role">
-          <p className="approved-hero-name">{hero.name}</p>
-          <h1 id="approved-hero-title" aria-label="Профиль Project Manager">
-            <span>PROJECT</span>
-            <span>MANAGER</span>
-          </h1>
-          <p className="approved-hero-specialization">{hero.specialization}</p>
-          <p className="approved-hero-domains">{hero.domains}</p>
-          <p className="approved-hero-experience">{hero.experience}</p>
+      <div className="approved-hero-shell">
+        <div className="approved-hero-copy">
+          <p className="approved-hero-name" data-hero-motion>{hero.name}</p>
+          <p className="approved-hero-role-label" data-hero-motion>{hero.role}</p>
+          <h1 id="approved-hero-title" data-hero-motion>{hero.title}</h1>
+          <p className="approved-hero-specialization" data-hero-motion>{hero.specialization}</p>
+          <p className="approved-hero-lead" data-hero-motion>{hero.lead}</p>
+          <p className="approved-hero-statement" data-hero-motion>{hero.statement}</p>
+          <div className="approved-hero-actions" data-hero-motion>
+            <a className="approved-button approved-button-primary" href="#cases" data-analytics-event="hero_cases">
+              {hero.primaryCta}
+            </a>
+            <a className="approved-button approved-button-secondary" href={landing.contact.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">
+              {hero.secondaryCta} <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
 
-        <figure className="approved-portrait">
-          <span className="approved-portrait-spark" aria-hidden="true" />
+        <figure className="approved-portrait" data-hero-motion>
+          <div className="approved-portrait-halo" aria-hidden="true" />
           <div className="approved-portrait-frame">
             <Image
               src={hero.portraitSrc}
               alt={hero.portraitAlt}
               fill
               priority
-              sizes="(max-width: 760px) 92vw, (max-width: 1100px) 44vw, 38vw"
+              sizes="(max-width: 820px) 92vw, (max-width: 1180px) 44vw, 40vw"
             />
           </div>
+          <figcaption>
+            <strong>{hero.experience}</strong>
+            <span>{hero.location}</span>
+          </figcaption>
         </figure>
+
+        <ProjectRouteWidget />
       </div>
 
-      <div className="approved-hero-promise">
-        <span className="approved-orbit" aria-hidden="true" />
-        <h2>{hero.title}</h2>
-        <div>
-          <p className="approved-hero-lead">{hero.lead}</p>
-          <p className="approved-hero-statement">{hero.statement}</p>
-          <p className="approved-hero-stakeholders">{hero.stakeholders}</p>
-        </div>
+      <div className="approved-hero-proof" data-reveal>
+        <p>{hero.domains}</p>
+        <p>{hero.stakeholders}</p>
       </div>
 
       <div className="approved-hero-stats" aria-label="Ключевые показатели">
         {hero.stats.map((stat) => (
-          <article key={stat.value}>
+          <article data-reveal key={stat.value}>
             <strong className="approved-numeric">{stat.value}</strong>
             <span>{stat.label}</span>
           </article>
         ))}
-      </div>
-
-      <div className="approved-hero-actions">
-        <a className="approved-button approved-button-primary" href="#cases" data-analytics-event="hero_cases">
-          {hero.primaryCta}
-        </a>
-        <a className="approved-text-link" href={landing.contact.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">
-          {hero.secondaryCta} <span aria-hidden="true">↗</span>
-        </a>
       </div>
     </section>
   );
@@ -116,27 +108,29 @@ function ResultsSection() {
 
   return (
     <section className="approved-section approved-results" id="results" aria-labelledby="approved-results-title" data-motion-section>
-      <div className="approved-section-head">
+      <div className="approved-section-head" data-reveal>
         <Eyebrow>{results.label}</Eyebrow>
         <DisplayTitle id="approved-results-title" lines={results.titleLines} />
       </div>
 
       <div className="approved-results-grid">
         {results.items.map((item, index) => (
-          <article className={`approved-result approved-result-${index + 1}`} key={item.accent}>
-            <span className="approved-result-index">0{index + 1}</span>
-            <strong className={`approved-result-accent${/\d/.test(item.accent) ? " approved-numeric" : ""}`}>{item.accent}</strong>
-            <h3>{item.title}</h3>
-            {item.intro ? <p>{item.intro}</p> : null}
-            {"detailsBeforePrimary" in item && item.detailsBeforePrimary ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
-            {item.primary ? <p className="approved-result-primary">{item.primary}</p> : null}
-            {!("detailsBeforePrimary" in item && item.detailsBeforePrimary) ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
-            {item.secondary ? <p className="approved-result-secondary">{item.secondary}</p> : null}
+          <article className={`approved-result approved-result-${index + 1}`} data-reveal key={item.accent}>
+            <div className="approved-result-copy">
+              <strong className={`approved-result-accent${/\d/.test(item.accent) ? " approved-numeric" : ""}`}>{item.accent}</strong>
+              <h3>{item.title}</h3>
+              {item.intro ? <p>{item.intro}</p> : null}
+              {"detailsBeforePrimary" in item && item.detailsBeforePrimary ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
+              {item.primary ? <p className="approved-result-primary">{item.primary}</p> : null}
+              {!("detailsBeforePrimary" in item && item.detailsBeforePrimary) ? item.details?.map((detail) => <p key={detail}>{detail}</p>) : null}
+              {item.secondary ? <p className="approved-result-secondary">{item.secondary}</p> : null}
+            </div>
+            <ResultSignal index={index} />
           </article>
         ))}
       </div>
 
-      <aside className="approved-scale">
+      <aside className="approved-scale" data-reveal>
         <h3>{results.scale.title}</h3>
         <div>
           {results.scale.items.map((item) => (
@@ -153,7 +147,7 @@ function MethodSection() {
 
   return (
     <section className="approved-section approved-method" id="method" aria-labelledby="approved-method-title" data-motion-section>
-      <div className="approved-section-head approved-section-head-split">
+      <div className="approved-section-head approved-section-head-split" data-reveal>
         <div>
           <Eyebrow>{method.label}</Eyebrow>
           <DisplayTitle id="approved-method-title" lines={method.titleLines} />
@@ -164,9 +158,10 @@ function MethodSection() {
         </div>
       </div>
 
+      <div className="approved-method-route" aria-hidden="true"><span /></div>
       <ol className="approved-method-steps">
         {method.steps.map((step) => (
-          <li key={step.number}>
+          <li data-reveal key={step.number}>
             <div className="approved-step-number">
               <span aria-hidden="true">→</span>
               <span className="approved-step-sr">Этап {step.number}</span>
@@ -178,7 +173,7 @@ function MethodSection() {
         ))}
       </ol>
 
-      <div className="approved-business-value">
+      <div className="approved-business-value" data-reveal>
         <h3>{method.businessValueTitle}</h3>
         <div className="approved-business-grid">
           {method.businessValues.map((item) => (
@@ -200,20 +195,21 @@ function CasesSection() {
 
   return (
     <section className="approved-section approved-cases" id="cases" aria-labelledby="approved-cases-title" data-motion-section>
-      <div className="approved-section-head">
+      <div className="approved-section-head" data-reveal>
         <Eyebrow>{cases.label}</Eyebrow>
         <DisplayTitle id="approved-cases-title" lines={cases.titleLines} />
       </div>
 
       <div className="approved-case-list">
-        {cases.items.map((item) => (
-          <article className="approved-case" key={item.number}>
+        {cases.items.map((item, index) => (
+          <article className="approved-case" data-reveal key={item.number}>
             <header className="approved-case-head">
               <span className="approved-case-number approved-numeric">{item.number}</span>
               <div>
                 <p className="approved-case-tags">{item.tags}</p>
                 <h3>{item.title}</h3>
               </div>
+              <CaseSignal index={index} />
             </header>
 
             <div className="approved-case-body">
@@ -260,7 +256,7 @@ function CasesSection() {
         ))}
       </div>
 
-      <aside className="approved-vendors">
+      <aside className="approved-vendors" data-reveal>
         <p>{cases.vendors.title}</p>
         <strong>{cases.vendors.metric}</strong>
         <div>
@@ -277,7 +273,7 @@ function ExperienceSection() {
 
   return (
     <section className="approved-section approved-experience" id="experience" aria-labelledby="approved-experience-title" data-motion-section>
-      <div className="approved-section-head">
+      <div className="approved-section-head" data-reveal>
         <Eyebrow>{experience.label}</Eyebrow>
         <DisplayTitle id="approved-experience-title" lines={experience.titleLines} />
         <p className="approved-career-path">{experience.path}</p>
@@ -285,7 +281,7 @@ function ExperienceSection() {
 
       <div className="approved-experience-list">
         {experience.items.map((item) => (
-          <article key={item.period}>
+          <article data-reveal key={item.period}>
             <p className="approved-experience-period">{item.period}</p>
             <div className="approved-experience-role">
               <h3>{item.company}</h3>
@@ -309,13 +305,13 @@ function DetailsSection() {
 
   return (
     <section className="approved-section approved-details" id="details" aria-labelledby="approved-details-title" data-motion-section>
-      <div className="approved-section-head">
+      <div className="approved-section-head" data-reveal>
         <Eyebrow>{details.label}</Eyebrow>
         <DisplayTitle id="approved-details-title" lines={details.titleLines} />
       </div>
 
       <div className="approved-details-grid">
-        <article className="approved-toolbox">
+        <article className="approved-toolbox" data-reveal>
           {details.tools.map((tool) => (
             <div key={tool.label}>
               <h3>{tool.label}</h3>
@@ -329,7 +325,7 @@ function DetailsSection() {
           </div>
         </article>
 
-        <article className="approved-credentials">
+        <article className="approved-credentials" data-reveal>
           <div>
             <h3>ОБРАЗОВАНИЕ</h3>
             {details.education.map((item) => (
@@ -354,17 +350,17 @@ function ContactSection() {
 
   return (
     <footer className="approved-contact" id="contacts" aria-labelledby="approved-contact-title" data-motion-section>
-      <div className="approved-contact-head">
+      <div className="approved-contact-head" data-reveal>
         <Eyebrow>{contact.label}</Eyebrow>
         <DisplayTitle id="approved-contact-title" lines={contact.titleLines} />
       </div>
 
-      <div className="approved-contact-copy">
+      <div className="approved-contact-copy" data-reveal>
         <p><InlineEmphasis text={contact.text} phrase={contact.textEmphasis} /></p>
         <p><InlineEmphasis text={contact.role} phrase={contact.roleEmphasis} /></p>
       </div>
 
-      <div className="approved-contact-action">
+      <div className="approved-contact-action" data-reveal>
         <div>
           <span className="approved-contact-kicker">Открыта к новым проектам</span>
           <h3>{contact.ctaTitle}</h3>
@@ -380,7 +376,7 @@ function ContactSection() {
         </a>
       </div>
 
-      <address className="approved-contact-details">
+      <address className="approved-contact-details" data-reveal>
         <div>
           <span>Телефон</span>
           <a href={contact.phoneHref} data-analytics-event="contact_phone">{contact.phone}</a>
@@ -396,11 +392,8 @@ function ContactSection() {
         <a className="approved-contact-resume" id="pdf" href={contact.resumeHref} target="_blank" rel="noreferrer" data-analytics-event="resume_pdf">{contact.resumeCta} <span aria-hidden="true">↗</span></a>
       </address>
 
-      <div className="approved-footer-signature">
-        <div>
-          <strong>Татьяна Бабанова</strong>
-          <span>Менеджер проектов · Москва</span>
-        </div>
+      <div className="approved-footer-end">
+        <span>© 2026</span>
         <a href="#top">Наверх <span aria-hidden="true">↑</span></a>
       </div>
     </footer>
@@ -409,7 +402,7 @@ function ContactSection() {
 
 export function ApprovedLanding() {
   return (
-    <div className="approved-site motion motion-c" data-motion="c">
+    <div className="approved-site approved-modern" data-motion="c">
       <div className="approved-ambient-grid" aria-hidden="true" />
       <MotionController motion="c" />
       <SiteHeader />
