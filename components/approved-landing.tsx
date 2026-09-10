@@ -31,10 +31,6 @@ function SiteHeader() {
 
   return (
     <header className="approved-nav">
-      <a className="approved-nav-context" href="#top" aria-label="К началу страницы">
-        <span>УПРАВЛЕНИЕ ПРОЕКТАМИ</span>
-        <small>ПОРТФОЛИО · 2026</small>
-      </a>
       <nav className="approved-desktop-nav" aria-label="Основная навигация">
         {landing.navigation.map((item) => (
           <a href={`#${item.target}`} data-nav-target={item.target} key={item.target}>{item.label}</a>
@@ -62,7 +58,6 @@ function HeroSection() {
         <div className="approved-hero-copy">
           <p className="approved-hero-role-label" data-hero-motion>{hero.role}</p>
           <h1 id="approved-hero-title" data-hero-motion>{withoutTrailingPeriod(hero.title)}</h1>
-          <p className="approved-hero-specialization" data-hero-motion>{hero.specialization}</p>
           <p className="approved-hero-lead" data-hero-motion>{hero.lead}</p>
           <p className="approved-hero-statement" data-hero-motion>{hero.statement}</p>
           <div className="approved-hero-actions" data-hero-motion>
@@ -85,9 +80,6 @@ function HeroSection() {
               sizes="(max-width: 820px) 92vw, (max-width: 1180px) 44vw, 40vw"
             />
           </div>
-          <figcaption>
-            <strong>{hero.experience}</strong>
-          </figcaption>
         </figure>
       </div>
 
@@ -112,13 +104,7 @@ function HeroSection() {
           <span>РИСКИ</span><i />
           <span>ЗАВИСИМОСТИ</span><i />
           <span>КАЧЕСТВО</span><i />
-          <span>ПРИЁМКА</span><i />
-          <span>СРОКИ</span><i />
-          <span>БЮДЖЕТ</span><i />
-          <span>РИСКИ</span><i />
-          <span>ЗАВИСИМОСТИ</span><i />
-          <span>КАЧЕСТВО</span><i />
-          <span>ПРИЁМКА</span><i />
+          <span>ПРИЁМКА</span>
         </div>
       </div>
     </section>
@@ -337,29 +323,16 @@ function DetailsSection() {
           {details.tools.map((tool) => (
             <div key={tool.label}>
               <h3>{tool.label}</h3>
-              <p>{tool.value}</p>
+              <div>
+                <strong>{tool.value}</strong>
+                <p>{tool.purpose}</p>
+              </div>
             </div>
           ))}
           <div className="approved-ai-copy">
             <h3>{details.aiIntro}</h3>
             <strong>{details.aiUses}</strong>
             <p>{details.aiText}</p>
-          </div>
-        </article>
-
-        <article className="approved-credentials" data-reveal>
-          <div>
-            <h3>ОБРАЗОВАНИЕ</h3>
-            {details.education.map((item) => (
-              <section key={item.institution}>
-                <strong>{item.institution}</strong>
-                <p>{item.program}</p>
-              </section>
-            ))}
-          </div>
-          <div>
-            <h3>ЯЗЫКИ</h3>
-            {details.languages.map((language) => <p key={language}>{language}</p>)}
           </div>
         </article>
       </div>
