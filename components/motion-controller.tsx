@@ -15,7 +15,7 @@ export function MotionController({ motion }: { motion: MotionId }) {
     const sections = Array.from(scope.querySelectorAll<HTMLElement>("[data-motion-section]"));
     const navLinks = Array.from(scope.querySelectorAll<HTMLAnchorElement>("[data-nav-target]"));
     const kineticItems = Array.from(scope.querySelectorAll<HTMLElement>(
-      "h1, .approved-display, .approved-result-accent, .approved-case-highlight strong",
+      "h1, .approved-display",
     ));
     let kineticFrame = 0;
 

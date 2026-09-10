@@ -83,11 +83,6 @@ function HeroSection() {
         </figure>
       </div>
 
-      <div className="approved-hero-proof" data-reveal>
-        <p>{hero.domains}</p>
-        <p>{hero.stakeholders}</p>
-      </div>
-
       <div className="approved-hero-stats" aria-label="Ключевые показатели">
         {hero.stats.map((stat) => (
           <article data-reveal key={stat.value}>
@@ -97,16 +92,6 @@ function HeroSection() {
         ))}
       </div>
 
-      <div className="approved-hero-ticker" aria-hidden="true">
-        <div>
-          <span>СРОКИ</span><i />
-          <span>БЮДЖЕТ</span><i />
-          <span>РИСКИ</span><i />
-          <span>ЗАВИСИМОСТИ</span><i />
-          <span>КАЧЕСТВО</span><i />
-          <span>ПРИЁМКА</span>
-        </div>
-      </div>
     </section>
   );
 }
@@ -117,7 +102,6 @@ function ResultsSection() {
   return (
     <section className="approved-section approved-results" id="results" aria-labelledby="approved-results-title" data-motion-section>
       <div className="approved-section-head" data-reveal>
-        <Eyebrow>{results.label}</Eyebrow>
         <DisplayTitle id="approved-results-title" lines={results.titleLines} />
       </div>
 
@@ -136,7 +120,6 @@ function ResultsSection() {
       </div>
 
       <aside className="approved-scale" data-reveal>
-        <h3>{results.scale.title}</h3>
         <div>
           {results.scale.items.map((item) => (
             <p key={item.value}><strong className="approved-numeric">{item.value}</strong><span>{item.label}</span></p>
@@ -152,18 +135,11 @@ function MethodSection() {
 
   return (
     <section className="approved-section approved-method" id="method" aria-labelledby="approved-method-title" data-motion-section>
-      <div className="approved-section-head approved-section-head-split" data-reveal>
-        <div>
-          <Eyebrow>{method.label}</Eyebrow>
-          <DisplayTitle id="approved-method-title" lines={method.titleLines} />
-        </div>
-        <div className="approved-section-intro">
-          <strong>{method.strongZone}</strong>
-          <p>{method.intro}</p>
-        </div>
+      <div className="approved-section-head" data-reveal>
+        <Eyebrow>{method.label}</Eyebrow>
+        <DisplayTitle id="approved-method-title" lines={method.titleLines} />
       </div>
 
-      <div className="approved-method-route" aria-hidden="true"><span /></div>
       <ol className="approved-method-steps">
         {method.steps.map((step) => (
           <li data-reveal key={step.number}>
@@ -188,8 +164,6 @@ function MethodSection() {
             </article>
           ))}
         </div>
-        <blockquote>{method.executiveNote}</blockquote>
-        <p className="approved-personal-note">{method.personalNote}</p>
       </div>
     </section>
   );
@@ -264,14 +238,6 @@ function CasesSection() {
         ))}
       </div>
 
-      <aside className="approved-vendors" data-reveal>
-        <p>{cases.vendors.title}</p>
-        <strong>{cases.vendors.metric}</strong>
-        <div>
-          <p>{cases.vendors.text}</p>
-          <b>{cases.vendors.statement}</b>
-        </div>
-      </aside>
     </section>
   );
 }
@@ -284,7 +250,6 @@ function ExperienceSection() {
       <div className="approved-section-head" data-reveal>
         <Eyebrow>{experience.label}</Eyebrow>
         <DisplayTitle id="approved-experience-title" lines={experience.titleLines} />
-        <p className="approved-career-path">{experience.path}</p>
       </div>
 
       <div className="approved-experience-list">

@@ -4,24 +4,24 @@
 @import "../vendor/shadcn-tailwind-4.13.0.css";
 
 :root {
-  --background: #f0ece3;
-  --foreground: #172321;
-  --card: #fbf8f1;
-  --card-foreground: #172321;
-  --popover: #fbf8f1;
-  --popover-foreground: #172321;
-  --primary: #0f5d55;
+  --background: #f4f0e7;
+  --foreground: #142522;
+  --card: #fffdf8;
+  --card-foreground: #142522;
+  --popover: #fffdf8;
+  --popover-foreground: #142522;
+  --primary: #0b675e;
   --primary-foreground: #ffffff;
-  --secondary: #e7e1d6;
-  --secondary-foreground: #172321;
-  --muted: #e7e1d6;
-  --muted-foreground: #52615e;
-  --accent: #0f5d55;
+  --secondary: #e4efeb;
+  --secondary-foreground: #142522;
+  --muted: #e4efeb;
+  --muted-foreground: #435854;
+  --accent: #0b675e;
   --accent-foreground: #ffffff;
   --destructive: #a52f38;
-  --border: #c9c1b5;
-  --input: #c9c1b5;
-  --ring: #0f5d55;
+  --border: #bfd1cc;
+  --input: #bfd1cc;
+  --ring: #0b675e;
   --radius: 1rem;
 }
 
