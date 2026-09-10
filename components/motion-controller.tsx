@@ -42,8 +42,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
             const distance = ((rect.top + rect.height / 2) - viewportCenter) / Math.max(window.innerHeight, 1);
             const clamped = Math.max(-1, Math.min(1, distance));
             const direction = index % 2 === 0 ? 1 : -1;
-            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 5).toFixed(2)}px`);
-            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -9).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-x", `${(clamped * direction * 28).toFixed(2)}px`);
+            item.style.setProperty("--kinetic-scroll-y", `${(clamped * -44).toFixed(2)}px`);
           });
           kineticFrame = 0;
         });
@@ -58,8 +58,15 @@ export function MotionController({ motion }: { motion: MotionId }) {
       const y = event.clientY / Math.max(window.innerHeight, 1) - 0.5;
       scope.style.setProperty("--pointer-x", x.toFixed(3));
       scope.style.setProperty("--pointer-y", y.toFixed(3));
+      scope.style.setProperty("--cursor-x", `${event.clientX}px`);
+      scope.style.setProperty("--cursor-y", `${event.clientY}px`);
+      scope.classList.add("cursor-visible");
+      const target = event.target instanceof Element ? event.target : null;
+      scope.classList.toggle("cursor-interactive", Boolean(target?.closest("a, button, summary")));
     };
     window.addEventListener("pointermove", updatePointer, { passive: true });
+    const hideCursor = () => scope.classList.remove("cursor-visible", "cursor-interactive");
+    document.documentElement.addEventListener("mouseleave", hideCursor);
 
     const kineticCleanups = kineticItems.map((item, index) => {
       item.classList.add("approved-kinetic-text");
@@ -70,8 +77,8 @@ export function MotionController({ motion }: { motion: MotionId }) {
         const rect = item.getBoundingClientRect();
         const x = (event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5;
         const y = (event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5;
-        item.style.setProperty("--kinetic-hover-x", `${(x * 13).toFixed(2)}px`);
-        item.style.setProperty("--kinetic-hover-y", `${(y * 8).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-x", `${(x * 80).toFixed(2)}px`);
+        item.style.setProperty("--kinetic-hover-y", `${(y * 48).toFixed(2)}px`);
         item.classList.add("is-kinetic-hovered");
       };
       const leave = () => {
@@ -97,6 +104,7 @@ export function MotionController({ motion }: { motion: MotionId }) {
         if (kineticFrame) window.cancelAnimationFrame(kineticFrame);
         window.removeEventListener("scroll", updateProgress);
         window.removeEventListener("pointermove", updatePointer);
+        document.documentElement.removeEventListener("mouseleave", hideCursor);
       };
     }
 
@@ -139,6 +147,7 @@ export function MotionController({ motion }: { motion: MotionId }) {
       sectionObserver.disconnect();
       window.removeEventListener("scroll", updateProgress);
       window.removeEventListener("pointermove", updatePointer);
+      document.documentElement.removeEventListener("mouseleave", hideCursor);
     };
   }, [motion]);
 

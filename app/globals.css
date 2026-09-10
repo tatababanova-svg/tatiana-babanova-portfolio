@@ -1,27 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Onest:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&family=Unbounded:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "../vendor/shadcn-tailwind-4.13.0.css";
 
 :root {
-  --background: #f2f4f7;
-  --foreground: #0c0f14;
-  --card: #f8f9fb;
-  --card-foreground: #0c0f14;
-  --popover: #f8f9fb;
-  --popover-foreground: #0c0f14;
-  --primary: #315cff;
+  --background: #f1f2f8;
+  --foreground: #1b1733;
+  --card: #f8f8fc;
+  --card-foreground: #1b1733;
+  --popover: #f8f8fc;
+  --popover-foreground: #1b1733;
+  --primary: #6658ff;
   --primary-foreground: #ffffff;
   --secondary: #e4e8ef;
-  --secondary-foreground: #0c0f14;
+  --secondary-foreground: #1b1733;
   --muted: #e4e8ef;
   --muted-foreground: #606977;
-  --accent: #315cff;
+  --accent: #6658ff;
   --accent-foreground: #ffffff;
   --destructive: #a52f38;
   --border: #cdd3dc;
   --input: #cdd3dc;
-  --ring: #315cff;
+  --ring: #6658ff;
   --radius: 1rem;
 }
 
@@ -44,7 +44,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: "Manrope", "Onest", "Segoe UI", sans-serif;
+  --font-sans: "Golos Text", "Segoe UI", sans-serif;
 }
 
 * {
@@ -61,7 +61,7 @@ body {
   overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
-  font-family: "Manrope", "Onest", "Segoe UI", sans-serif;
+  font-family: "Golos Text", "Segoe UI", sans-serif;
 }
 
 a {

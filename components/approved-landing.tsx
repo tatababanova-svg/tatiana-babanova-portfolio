@@ -29,11 +29,8 @@ function SiteHeader() {
   return (
     <header className="approved-nav">
       <a className="approved-nav-mark" href="#top" aria-label="К началу страницы">
-        <svg viewBox="0 0 44 44" aria-hidden="true">
-          <circle cx="22" cy="22" r="20" />
-          <path d="M12 27C17 16 25 30 32 16" />
-          <path d="m27 17 5-1-1 5" />
-        </svg>
+        <span>ТБ</span>
+        <i aria-hidden="true" />
       </a>
       <nav className="approved-desktop-nav" aria-label="Основная навигация">
         {landing.navigation.map((item) => (
@@ -48,12 +45,18 @@ function SiteHeader() {
 
 function HeroSection() {
   const { hero } = landing;
+  const [firstName, lastName] = hero.name.split(" ");
 
   return (
     <section className="approved-hero" id="top" aria-labelledby="approved-hero-title">
       <div className="approved-hero-shell">
+        <p className="approved-hero-signature" data-hero-motion>
+          <span>{firstName}</span>
+          <span>{lastName}</span>
+          <i aria-hidden="true">Портфолио · 2026</i>
+        </p>
+
         <div className="approved-hero-copy">
-          <p className="approved-hero-name" data-hero-motion>{hero.name}</p>
           <p className="approved-hero-role-label" data-hero-motion>{hero.role}</p>
           <h1 id="approved-hero-title" data-hero-motion>{hero.title}</h1>
           <p className="approved-hero-specialization" data-hero-motion>{hero.specialization}</p>
@@ -436,6 +439,7 @@ export function ApprovedLanding() {
   return (
     <div className="approved-site approved-modern" data-motion="c">
       <div className="approved-ambient-grid" aria-hidden="true" />
+      <div className="approved-cursor" aria-hidden="true"><span /></div>
       <MotionController motion="c" />
       <SiteHeader />
       <main>
