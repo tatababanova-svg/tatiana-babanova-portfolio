@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
+import { GitHubPagesCompat } from "@/components/github-pages-compat";
 import seo from "@/content/seo.json";
 import "./globals.css";
 import "./approved-modern.css";
 import "./responsive-refinement.css";
 import "./mobile-desktop-parity.css";
+import "./mobile-final.css";
 
 export const metadata: Metadata = {
   title: seo.title,
@@ -52,6 +54,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className="antialiased">
         {children}
+        <GitHubPagesCompat />
         <AnalyticsTracker />
       </body>
     </html>
