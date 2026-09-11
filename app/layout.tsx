@@ -7,6 +7,7 @@ import "./approved-modern.css";
 import "./responsive-refinement.css";
 import "./mobile-desktop-parity.css";
 import "./mobile-final.css";
+import "./mobile-parity-v2.css";
 
 export const metadata: Metadata = {
   title: seo.title,
