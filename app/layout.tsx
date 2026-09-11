@@ -4,6 +4,7 @@ import seo from "@/content/seo.json";
 import "./globals.css";
 import "./approved-modern.css";
 import "./responsive-refinement.css";
+import "./mobile-desktop-parity.css";
 
 export const metadata: Metadata = {
   title: seo.title,
