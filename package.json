@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "node scripts/next-preview.mjs",
-    "build": "node scripts/fetch-latest-pdf.mjs && next build",
+    "build": "next build",
     "start": "next start",
     "test": "npm run build && node --test tests/*.test.mjs",
     "lint": "eslint . --ignore-pattern .next"
