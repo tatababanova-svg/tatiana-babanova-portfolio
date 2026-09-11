@@ -1,0 +1,516 @@
+/* Mobile parity layer: keep the desktop visual system, hierarchy and palette on phones. */
+@media (max-width: 700px) {
+  .approved-site.approved-modern {
+    --approved-container: calc(100% - 28px);
+    min-width: 0;
+    overflow-x: clip;
+    font-size: 16px;
+    line-height: 1.5;
+    background: var(--approved-paper);
+  }
+
+  .approved-modern::before {
+    opacity: 0.42;
+  }
+
+  .approved-modern .approved-kinetic-text,
+  .approved-modern:not(.motion-ready) :where(h1, .approved-display):hover {
+    transform: none !important;
+  }
+
+  /* Compact floating navigation instead of a wide mobile panel. */
+  .approved-modern .approved-nav {
+    inset: 12px 12px auto auto;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 6px;
+    border-radius: 14px;
+    background: rgba(255, 250, 245, 0.97);
+    box-shadow: 0 10px 28px rgba(52, 9, 28, 0.16);
+    backdrop-filter: blur(14px);
+  }
+
+  .approved-modern .approved-progress { display: none; }
+  .approved-modern .mobile-menu { display: block; }
+  .approved-modern .mobile-menu summary {
+    min-height: 42px;
+    padding: 7px 11px;
+    border-radius: 9px;
+    background: transparent;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+  .approved-modern .mobile-menu nav {
+    top: calc(100% + 9px);
+    width: min(82vw, 306px);
+    min-width: 0;
+    padding: 8px;
+    border-radius: 15px;
+    background: var(--approved-white);
+  }
+  .approved-modern .mobile-menu nav a {
+    padding: 11px 12px;
+    font-size: 0.94rem;
+  }
+
+  /* HERO — same burgundy editorial panel as desktop, but deliberately compact. */
+  .approved-modern .approved-hero {
+    width: calc(100% - 16px);
+    margin: 8px auto 18px;
+    padding: 80px 0 24px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 250, 245, 0.12);
+    border-radius: 28px;
+    background: var(--approved-paper);
+  }
+
+  .approved-modern .approved-hero-shell {
+    width: var(--approved-container);
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .approved-modern .approved-hero-signature {
+    grid-template-columns: auto auto;
+    gap: 6px 10px;
+    padding: 0 0 14px;
+    font-size: clamp(1.15rem, 5.9vw, 1.55rem);
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .approved-modern .approved-hero-signature::after { display: none; }
+  .approved-modern .approved-hero-signature i {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 3px;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .approved-modern .approved-hero-copy {
+    width: 100%;
+    max-width: none;
+    padding: 8px 0 16px;
+  }
+  .approved-modern .approved-hero-role-label {
+    margin-bottom: 13px;
+    padding: 6px 10px;
+    font-size: 0.76rem;
+  }
+  .approved-modern .approved-hero h1 {
+    max-width: 12ch;
+    font-size: clamp(2rem, 9.4vw, 2.62rem);
+    letter-spacing: -0.045em;
+    line-height: 1.02;
+  }
+  .approved-modern .approved-hero-lead,
+  .approved-modern .approved-hero-statement {
+    max-width: 33ch;
+    font-size: 0.99rem;
+    line-height: 1.52;
+  }
+  .approved-modern .approved-hero-lead { margin-top: 16px; }
+  .approved-modern .approved-hero-statement { margin-top: 10px; }
+
+  .approved-modern .approved-flow-widget {
+    display: grid;
+    width: 100%;
+    max-width: 360px;
+    grid-template-columns: repeat(3, max-content);
+    gap: 7px;
+    margin-top: 18px;
+  }
+  .approved-modern .approved-flow-widget::before { display: none; }
+  .approved-modern .approved-flow-widget span {
+    padding: 6px 9px;
+    font-size: 0.74rem;
+    animation: none;
+  }
+
+  .approved-modern .approved-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin-top: 20px;
+  }
+  .approved-modern .approved-button {
+    width: 100%;
+    min-height: 48px;
+    padding-inline: 16px;
+    border-radius: 11px;
+    font-size: 0.9rem;
+  }
+
+  .approved-modern .approved-portrait {
+    width: 100%;
+    max-width: 420px;
+    margin: 10px auto 0;
+  }
+  .approved-modern .approved-portrait-frame {
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
+    box-shadow: 8px 9px 0 var(--approved-rose);
+  }
+  .approved-modern .approved-portrait img {
+    object-position: center 22%;
+  }
+
+  /* Preserve the desktop four-stat idea as a 2×2 matrix, instead of four tall rows. */
+  .approved-modern .approved-hero-stats {
+    width: var(--approved-container);
+    margin: 34px auto 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    overflow: hidden;
+    border-color: rgba(78, 25, 47, 0.18);
+    border-radius: 18px;
+    background: var(--approved-white);
+    color: var(--approved-ink);
+  }
+  .approved-modern .approved-hero-stats article,
+  .approved-modern .approved-hero-stats article:nth-child(3) {
+    min-height: 124px;
+    padding: 18px;
+    border-top: 0;
+    border-left: 1px solid var(--approved-line);
+  }
+  .approved-modern .approved-hero-stats article:nth-child(odd) { border-left: 0; }
+  .approved-modern .approved-hero-stats article:nth-child(n + 3) { border-top: 1px solid var(--approved-line); }
+  .approved-modern .approved-hero-stats strong {
+    color: var(--approved-blue);
+    font-size: 1.23rem;
+    line-height: 1.15;
+  }
+  .approved-modern .approved-hero-stats span {
+    color: var(--approved-ink-muted);
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+
+  /* Shared section rhythm — centered like desktop, but not oversized. */
+  .approved-modern .approved-section,
+  .approved-modern .approved-contact {
+    padding: 58px 14px;
+  }
+  .approved-modern .approved-section-head,
+  .approved-modern .approved-contact-head {
+    width: min(100%, 520px);
+    margin: 0 auto 28px;
+    text-align: center;
+  }
+  .approved-modern .approved-eyebrow {
+    margin-bottom: 10px;
+    font-size: 0.74rem;
+    letter-spacing: 0.09em;
+  }
+  .approved-modern .approved-display,
+  .approved-modern .approved-contact .approved-display {
+    max-width: 14ch;
+    margin-inline: auto;
+    font-size: clamp(1.72rem, 7.7vw, 2.22rem);
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+  }
+
+  /* RESULTS — keep desktop white cards and blue scale panel, but stop them becoming huge. */
+  .approved-modern .approved-results-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .approved-modern .approved-result {
+    min-height: 0;
+    padding: 22px 20px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-result-copy { max-width: 32ch; }
+  .approved-modern .approved-result-accent,
+  .approved-modern .approved-result-3 .approved-result-accent,
+  .approved-modern .approved-result-4 .approved-result-accent {
+    max-width: 16ch;
+    margin-bottom: 10px;
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+    line-height: 1.08;
+  }
+  .approved-modern .approved-result h3 {
+    max-width: 27ch;
+    margin-bottom: 10px;
+    font-size: 1.08rem;
+    line-height: 1.32;
+  }
+  .approved-modern .approved-result p {
+    max-width: 32ch;
+    margin-top: 7px;
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+
+  .approved-modern .approved-scale {
+    margin-top: 12px;
+    padding: 12px 20px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-scale > div {
+    grid-template-columns: 1fr !important;
+  }
+  .approved-modern .approved-scale p,
+  .approved-modern .approved-scale p:first-child,
+  .approved-modern .approved-scale p:last-child {
+    min-height: 0;
+    padding: 16px 0;
+    border-top: 1px solid rgba(78, 25, 47, 0.18);
+    border-left: 0;
+    gap: 6px;
+  }
+  .approved-modern .approved-scale p:first-child { border-top: 0; }
+  .approved-modern .approved-scale strong { font-size: 1.16rem; line-height: 1.2; }
+  .approved-modern .approved-scale span { max-width: 30ch; font-size: 0.88rem; line-height: 1.42; }
+
+  /* METHOD — retain the desktop light panel, with compact rows and visible numbering. */
+  .approved-modern .approved-method-steps {
+    grid-template-columns: 1fr !important;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-method-steps li,
+  .approved-modern .approved-method-steps li:nth-child(3n),
+  .approved-modern .approved-method-steps li:nth-child(even),
+  .approved-modern .approved-method-steps li:nth-child(n + 5) {
+    min-height: 0;
+    padding: 23px 60px 23px 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--approved-line);
+  }
+  .approved-modern .approved-method-steps li:last-child { border-bottom: 0; }
+  .approved-modern .approved-step-number,
+  .approved-modern .approved-method-steps li:nth-child(even) .approved-step-number,
+  .approved-modern .approved-method-steps li:nth-child(3) .approved-step-number,
+  .approved-modern .approved-method-steps li:nth-child(4) .approved-step-number {
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    font-size: 0.82rem;
+  }
+  .approved-modern .approved-method-steps h3 {
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+  .approved-modern .approved-method-steps p,
+  .approved-modern .approved-method-steps > li > strong {
+    max-width: 31ch;
+    font-size: 0.9rem;
+    line-height: 1.46;
+  }
+  .approved-modern .approved-business-value {
+    margin-top: 34px;
+    gap: 14px;
+  }
+  .approved-modern .approved-business-value > h3 {
+    text-align: center;
+    font-size: 0.74rem;
+  }
+  .approved-modern .approved-business-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+  .approved-modern .approved-business-grid article {
+    min-height: 0;
+    padding: 19px;
+    border-radius: 15px;
+  }
+  .approved-modern .approved-business-grid h4 { margin-bottom: 6px; font-size: 0.98rem; }
+  .approved-modern .approved-business-grid p { max-width: 31ch; font-size: 0.9rem; line-height: 1.44; }
+
+  /* CASES — same desktop visual + content composition, proportioned for phone. */
+  .approved-modern .approved-case-list { gap: 14px; }
+  .approved-modern .approved-case {
+    min-height: 0;
+    padding: 10px;
+    border-radius: 20px;
+    grid-template-columns: 1fr !important;
+    gap: 0;
+  }
+  .approved-modern .approved-case-visual {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    padding: 18px;
+    border-radius: 15px;
+  }
+  .approved-modern .approved-case-highlight { max-width: 280px; gap: 6px; }
+  .approved-modern .approved-case-highlight strong {
+    max-width: 18ch;
+    font-size: clamp(1.15rem, 5.4vw, 1.42rem);
+    line-height: 1.13;
+  }
+  .approved-modern .approved-case-highlight p { margin-top: 3px; font-size: 0.84rem; }
+  .approved-modern .approved-case-widget { transform: scale(0.78); transform-origin: center; }
+
+  .approved-modern .approved-case-content { padding: 20px 8px 8px; }
+  .approved-modern .approved-case-head {
+    grid-template-columns: 30px minmax(0, 1fr) !important;
+    gap: 10px;
+    padding-bottom: 15px;
+  }
+  .approved-modern .approved-case-number { padding-top: 2px; font-size: 0.76rem; }
+  .approved-modern .approved-case-tags {
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+  .approved-modern .approved-case-head h3 {
+    max-width: 27ch;
+    font-size: 1.1rem;
+    line-height: 1.22;
+  }
+  .approved-modern .approved-case-sections { margin-top: 8px; }
+  .approved-modern .approved-case-sections div { padding: 13px 0; }
+  .approved-modern .approved-case h4 { margin-bottom: 5px; font-size: 0.74rem; }
+  .approved-modern .approved-case-sections p {
+    max-width: 32ch;
+    font-size: 0.9rem;
+    line-height: 1.46;
+  }
+  .approved-modern .approved-case-result {
+    margin-top: 5px;
+    padding-top: 15px;
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+  }
+  .approved-modern .approved-case-metrics,
+  .approved-modern .approved-case-facts {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+  .approved-modern .approved-case-metrics p,
+  .approved-modern .approved-case-facts strong {
+    max-width: 100%;
+  }
+
+  /* EXPERIENCE — turn long desktop rows into compact editorial cards, not a text wall. */
+  .approved-modern .approved-experience-list {
+    display: grid;
+    gap: 12px;
+  }
+  .approved-modern .approved-experience-list article {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 20px;
+    border: 1px solid var(--approved-line);
+    border-radius: 18px;
+    background: var(--approved-white);
+    color: var(--approved-ink);
+  }
+  .approved-modern .approved-experience-period {
+    color: var(--approved-blue);
+    font-size: 0.76rem;
+    font-weight: 800;
+  }
+  .approved-modern .approved-experience-role h3 {
+    color: var(--approved-ink);
+    font-size: 1.12rem;
+  }
+  .approved-modern .approved-experience-role strong {
+    color: var(--approved-blue);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .approved-modern .approved-experience-copy {
+    grid-column: 1 !important;
+    max-width: none;
+    gap: 9px;
+  }
+  .approved-modern .approved-experience-copy p {
+    max-width: 33ch;
+    color: var(--approved-ink-muted);
+    font-size: 0.9rem;
+    line-height: 1.46;
+  }
+  .approved-modern .approved-experience-copy strong {
+    max-width: 100%;
+    padding: 8px 10px;
+    border-color: rgba(108, 24, 56, 0.2);
+    border-radius: 10px;
+    background: var(--approved-rose);
+    color: var(--approved-ink);
+    font-size: 0.82rem;
+    line-height: 1.42;
+  }
+
+  /* DETAILS — same desktop white toolbox, condensed. */
+  .approved-modern .approved-toolbox {
+    padding: 18px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-toolbox > div:not(.approved-ai-copy) {
+    grid-template-columns: 1fr !important;
+    gap: 6px;
+    padding: 18px 0;
+  }
+  .approved-modern .approved-toolbox > div:not(.approved-ai-copy) > div {
+    grid-template-columns: 1fr !important;
+    gap: 7px;
+  }
+  .approved-modern .approved-toolbox h3 { font-size: 0.78rem; }
+  .approved-modern .approved-toolbox strong { font-size: 1rem; line-height: 1.42; }
+  .approved-modern .approved-toolbox p { max-width: 32ch; font-size: 0.88rem; line-height: 1.44; }
+  .approved-modern .approved-ai-copy {
+    grid-template-columns: 1fr !important;
+    gap: 7px;
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 14px;
+  }
+  .approved-modern .approved-ai-copy p { grid-column: 1 !important; }
+
+  /* CONTACT — preserve desktop dark footer + blue card, with a compact readable stack. */
+  .approved-modern .approved-contact {
+    width: calc(100% - 16px);
+    margin: 18px auto 8px;
+    min-height: 0;
+    border-radius: 28px;
+    grid-template-columns: 1fr !important;
+    gap: 18px;
+  }
+  .approved-modern .approved-contact-copy {
+    max-width: 34ch;
+    gap: 10px;
+  }
+  .approved-modern .approved-contact-copy p {
+    max-width: 33ch;
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+  .approved-modern .approved-contact-action {
+    padding: 20px;
+    border-radius: 16px;
+    gap: 16px;
+  }
+  .approved-modern .approved-contact-action h3 { font-size: 1.22rem; }
+  .approved-modern .approved-contact-details {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+    padding: 20px 0;
+  }
+  .approved-modern .approved-contact-details span,
+  .approved-modern .approved-contact-details p { font-size: 0.82rem; }
+  .approved-modern .approved-contact-details a:not(.approved-contact-resume) { font-size: 0.98rem; }
+  .approved-modern .approved-contact-resume {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+  .approved-modern .approved-footer-end { font-size: 0.8rem; }
+}
+
+@media (max-width: 390px) {
+  .approved-site.approved-modern { --approved-container: calc(100% - 22px); }
+  .approved-modern .approved-section,
+  .approved-modern .approved-contact { padding-right: 11px; padding-left: 11px; }
+  .approved-modern .approved-flow-widget { grid-template-columns: repeat(2, max-content); }
+  .approved-modern .approved-hero h1 { font-size: clamp(1.88rem, 9.2vw, 2.32rem); }
+  .approved-modern .approved-display,
+  .approved-modern .approved-contact .approved-display { font-size: clamp(1.62rem, 7.4vw, 2.02rem); }
+  .approved-modern .approved-hero-stats article { padding: 15px; }
+}
