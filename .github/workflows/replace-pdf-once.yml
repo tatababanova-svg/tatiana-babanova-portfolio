@@ -1,0 +1,29 @@
+name: Replace portfolio PDF once
+
+on:
+  push:
+    paths:
+      - '.github/workflows/replace-pdf-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  replace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download new PDF
+        run: |
+          curl -L --fail --silent --show-error 'https://uc86e40249ec469801fa412e711a.dl.dropboxusercontent.com/cd/0/get/DH6eLj4GjixTm2Q2xzxi51slOrhCpr4dgMtAiErzE9lw7thbOr25-e8U6xFPmkdaLeAZI4YzMALuXRtbohll3GbI1SJIJCPVPZW2GO1lR0wc-ZPRmG2-TpKuK_6b_PEi-rJ_-np7qscTfC9dcwKMDdtnvrUE1cbpxsXJ2HYbXYk_IQ/file?c_luid=7f9d419c' -o /tmp/new.pdf
+          echo '7624edac507c1abf4257207b475133575a5239f41a09fbc150ca1a552b3dbd09  /tmp/new.pdf' | sha256sum -c -
+          cp /tmp/new.pdf public/tatiana-babanova-project-manager.pdf
+      - name: Commit replacement
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/tatiana-babanova-project-manager.pdf
+          git commit -m 'Replace portfolio PDF with latest version'
+          git push
