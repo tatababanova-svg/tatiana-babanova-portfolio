@@ -1,0 +1,339 @@
+/* Mobile parity v2 — keep the desktop design language; change only responsive geometry. */
+@media (max-width: 700px) {
+  .approved-site.approved-modern {
+    --approved-container: calc(100% - 32px);
+    font-size: 17px;
+    line-height: 1.52;
+  }
+
+  /* Keep the same porcelain navigation treatment, but mobile-sized. */
+  .approved-modern .approved-nav {
+    border-radius: 18px;
+    background: rgba(255, 250, 245, 0.95);
+  }
+  .approved-modern .mobile-menu summary {
+    border-radius: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* HERO: preserve desktop proportions and visual density. */
+  .approved-modern .approved-hero {
+    padding-top: 82px;
+  }
+  .approved-modern .approved-hero-shell {
+    width: var(--approved-container);
+    gap: 18px;
+  }
+  .approved-modern .approved-hero-signature {
+    padding-bottom: 16px;
+    font-size: clamp(1.28rem, 6vw, 1.62rem);
+  }
+  .approved-modern .approved-hero-copy {
+    padding: 10px 0 16px;
+  }
+  .approved-modern .approved-hero-role-label {
+    margin-bottom: 14px;
+    padding: 7px 11px;
+    font-size: 0.78rem;
+  }
+  .approved-modern .approved-hero h1 {
+    max-width: 12.5ch;
+    font-size: clamp(2.18rem, 9.7vw, 2.72rem);
+    line-height: 1.01;
+  }
+  .approved-modern .approved-hero-lead,
+  .approved-modern .approved-hero-statement {
+    max-width: 35ch;
+    font-size: 1rem;
+    line-height: 1.54;
+  }
+
+  /* Keep the desktop "project path" feeling instead of a wrapped chip cloud. */
+  .approved-modern .approved-flow-widget {
+    display: flex;
+    max-width: none;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin-top: 18px;
+  }
+  .approved-modern .approved-flow-widget::before {
+    display: block;
+    right: 6%;
+    bottom: -9px;
+    left: 6%;
+    opacity: 0.65;
+    animation: none;
+    transform: scaleX(1);
+  }
+  .approved-modern .approved-flow-widget span {
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 5px 3px;
+    font-size: 0.62rem;
+    text-align: center;
+    white-space: nowrap;
+    animation: none;
+  }
+
+  /* Desktop keeps two actions together; keep that visual relationship on phone. */
+  .approved-modern .approved-hero-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .approved-modern .approved-button {
+    min-height: 48px;
+    padding-inline: 10px;
+    font-size: 0.82rem;
+  }
+
+  .approved-modern .approved-portrait {
+    width: min(88vw, 360px);
+    margin: 24px auto 6px;
+  }
+  .approved-modern .approved-portrait-frame {
+    aspect-ratio: 0.74;
+    border-radius: 30px;
+    box-shadow: 13px 15px 0 var(--approved-rose);
+  }
+
+  /* Same 4-stat dark panel as desktop, adapted only to 2×2. */
+  .approved-modern .approved-hero-stats {
+    width: var(--approved-container);
+    margin: 38px auto 42px;
+    border-radius: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .approved-modern .approved-hero-stats article,
+  .approved-modern .approved-hero-stats article:nth-child(3) {
+    min-height: 126px;
+    padding: 18px;
+  }
+  .approved-modern .approved-hero-stats strong {
+    font-size: 1.22rem;
+  }
+  .approved-modern .approved-hero-stats span {
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  /* Section typography should feel like the desktop version, not a mini mobile theme. */
+  .approved-modern .approved-section {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .approved-modern .approved-section-head,
+  .approved-modern .approved-contact-head {
+    margin-bottom: 32px;
+  }
+  .approved-modern .approved-eyebrow {
+    margin-bottom: 11px;
+    font-size: 0.78rem;
+  }
+  .approved-modern .approved-display,
+  .approved-modern .approved-contact .approved-display {
+    max-width: 14ch;
+    font-size: clamp(1.92rem, 8.2vw, 2.38rem);
+    line-height: 1.07;
+  }
+
+  /* RESULTS: desktop card radii, spacing and type scale. */
+  .approved-modern .approved-results-grid {
+    gap: 14px;
+  }
+  .approved-modern .approved-result {
+    padding: 24px 22px;
+    border-radius: 22px;
+  }
+  .approved-modern .approved-result-accent,
+  .approved-modern .approved-result-3 .approved-result-accent,
+  .approved-modern .approved-result-4 .approved-result-accent {
+    margin-bottom: 12px;
+    font-size: clamp(1.55rem, 7vw, 2rem);
+    line-height: 1.08;
+  }
+  .approved-modern .approved-result h3 {
+    margin-bottom: 12px;
+    font-size: 1.16rem;
+    line-height: 1.35;
+  }
+  .approved-modern .approved-result p {
+    margin-top: 8px;
+    font-size: 0.96rem;
+    line-height: 1.52;
+  }
+  .approved-modern .approved-scale {
+    margin-top: 14px;
+    padding: 18px 22px;
+    border-radius: 22px;
+  }
+  .approved-modern .approved-scale strong {
+    font-size: 1.18rem;
+  }
+  .approved-modern .approved-scale span {
+    font-size: 0.94rem;
+  }
+
+  /* METHOD: preserve the same single porcelain system and desktop geometry. */
+  .approved-modern .approved-method-steps {
+    border-radius: 22px;
+  }
+  .approved-modern .approved-method-steps li,
+  .approved-modern .approved-method-steps li:nth-child(3n),
+  .approved-modern .approved-method-steps li:nth-child(even),
+  .approved-modern .approved-method-steps li:nth-child(n + 5) {
+    padding: 24px 64px 24px 22px;
+  }
+  .approved-modern .approved-step-number,
+  .approved-modern .approved-method-steps li:nth-child(even) .approved-step-number,
+  .approved-modern .approved-method-steps li:nth-child(3) .approved-step-number,
+  .approved-modern .approved-method-steps li:nth-child(4) .approved-step-number {
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  .approved-modern .approved-method-steps h3 {
+    font-size: 1.06rem;
+  }
+  .approved-modern .approved-method-steps p,
+  .approved-modern .approved-method-steps > li > strong {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .approved-modern .approved-business-grid article {
+    padding: 21px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-business-grid h4 {
+    font-size: 1.04rem;
+  }
+  .approved-modern .approved-business-grid p {
+    font-size: 0.94rem;
+    line-height: 1.48;
+  }
+
+  /* CASES: keep the same white card + coloured visual panel + decorative project widget. */
+  .approved-modern .approved-case-list {
+    gap: 16px;
+  }
+  .approved-modern .approved-case {
+    padding: 12px;
+    border-radius: 24px;
+  }
+  .approved-modern .approved-case-visual {
+    aspect-ratio: 1.7;
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-case-widget {
+    display: block !important;
+    opacity: 0.22;
+    transform: scale(0.58) !important;
+    transform-origin: center;
+    pointer-events: none;
+  }
+  .approved-modern .approved-case-highlight {
+    position: relative;
+    z-index: 3;
+  }
+  .approved-modern .approved-case-highlight strong {
+    font-size: clamp(1.2rem, 5.5vw, 1.5rem);
+  }
+  .approved-modern .approved-case-highlight p {
+    font-size: 0.9rem;
+  }
+  .approved-modern .approved-case-content {
+    padding: 22px 10px 10px;
+  }
+  .approved-modern .approved-case-head {
+    grid-template-columns: 34px minmax(0, 1fr) !important;
+    gap: 12px;
+    padding-bottom: 17px;
+  }
+  .approved-modern .approved-case-number {
+    font-size: 0.8rem;
+  }
+  .approved-modern .approved-case-tags {
+    font-size: 0.76rem;
+  }
+  .approved-modern .approved-case-head h3 {
+    font-size: 1.18rem;
+    line-height: 1.24;
+  }
+  .approved-modern .approved-case-sections div {
+    padding: 14px 0;
+  }
+  .approved-modern .approved-case h4 {
+    font-size: 0.78rem;
+  }
+  .approved-modern .approved-case-sections p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* EXPERIENCE: keep the desktop dark editorial rhythm, just stack the columns. */
+  .approved-modern .approved-experience-list article {
+    padding: 26px 0;
+    gap: 10px !important;
+  }
+  .approved-modern .approved-experience-period {
+    font-size: 0.78rem;
+  }
+  .approved-modern .approved-experience-role h3 {
+    font-size: 1.22rem;
+  }
+  .approved-modern .approved-experience-role strong {
+    font-size: 0.94rem;
+  }
+  .approved-modern .approved-experience-copy p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .approved-modern .approved-experience-copy strong {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  /* TOOLBOX / CONTACT: same desktop cards and radii. */
+  .approved-modern .approved-toolbox {
+    padding: 22px;
+    border-radius: 22px;
+  }
+  .approved-modern .approved-toolbox > div:not(.approved-ai-copy) {
+    padding: 20px 0;
+  }
+  .approved-modern .approved-toolbox h3 {
+    font-size: 0.8rem;
+  }
+  .approved-modern .approved-toolbox strong {
+    font-size: 1.06rem;
+  }
+  .approved-modern .approved-toolbox p {
+    font-size: 0.94rem;
+    line-height: 1.48;
+  }
+  .approved-modern .approved-ai-copy {
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-contact-action {
+    padding: 22px;
+    border-radius: 18px;
+  }
+  .approved-modern .approved-contact-copy p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 380px) {
+  .approved-modern .approved-flow-widget span {
+    font-size: 0.57rem;
+    padding-inline: 2px;
+  }
+  .approved-modern .approved-hero-actions {
+    grid-template-columns: 1fr;
+  }
+}
