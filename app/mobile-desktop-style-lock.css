@@ -1,0 +1,306 @@
+/* Final parity lock: desktop and mobile use the same artwork, palette and component styling.
+   Mobile may change only geometry, column count and readable type scale. */
+
+/* The portrait must be the very same rendered image on every host and viewport. */
+.approved-modern .approved-portrait-frame {
+  background-image: none !important;
+  background-color: var(--approved-sky) !important;
+}
+
+.approved-modern .approved-portrait-frame > img {
+  opacity: 1 !important;
+  object-fit: cover !important;
+  object-position: center 24% !important;
+  filter: saturate(0.78) contrast(1.03) !important;
+}
+
+@media (max-width: 700px) {
+  /* Never introduce a mobile-only palette. */
+  .approved-site.approved-modern {
+    background: var(--approved-paper) !important;
+    color: var(--approved-white) !important;
+  }
+
+  /* Section surfaces exactly mirror desktop. */
+  .approved-modern .approved-hero,
+  .approved-modern .approved-method,
+  .approved-modern .approved-cases,
+  .approved-modern .approved-details {
+    background: var(--approved-paper) !important;
+    color: var(--approved-white) !important;
+  }
+
+  .approved-modern .approved-results,
+  .approved-modern .approved-experience {
+    background: var(--approved-paper-soft) !important;
+    color: var(--approved-white) !important;
+  }
+
+  .approved-modern .approved-contact {
+    background: var(--approved-blue-dark) !important;
+    color: var(--approved-white) !important;
+  }
+
+  /* Keep the desktop accent hierarchy. */
+  .approved-modern .approved-eyebrow,
+  .approved-modern .approved-method .approved-eyebrow,
+  .approved-modern .approved-experience .approved-eyebrow,
+  .approved-modern .approved-details .approved-eyebrow,
+  .approved-modern .approved-contact .approved-eyebrow {
+    color: var(--approved-lime) !important;
+  }
+
+  .approved-modern .approved-hero-signature {
+    color: var(--approved-white) !important;
+  }
+  .approved-modern .approved-hero-signature span:last-of-type {
+    color: var(--approved-lime) !important;
+  }
+  .approved-modern .approved-hero-signature i {
+    color: var(--approved-sky) !important;
+  }
+  .approved-modern .approved-hero-role-label {
+    border-color: rgba(214, 246, 95, 0.58) !important;
+    background: rgba(67, 16, 34, 0.42) !important;
+    color: var(--approved-lime) !important;
+  }
+  .approved-modern .approved-hero h1 {
+    color: var(--approved-white) !important;
+  }
+  .approved-modern .approved-hero-lead,
+  .approved-modern .approved-hero-statement {
+    color: #f8eaf0 !important;
+  }
+
+  /* Buttons use desktop styling, only their layout may wrap on a phone. */
+  .approved-modern .approved-button {
+    border-radius: 12px !important;
+  }
+  .approved-modern .approved-button-primary {
+    background: var(--approved-lime) !important;
+    color: var(--approved-blue-dark) !important;
+    box-shadow: 0 16px 32px rgba(32, 6, 17, 0.24) !important;
+  }
+  .approved-modern .approved-button-secondary {
+    border-color: rgba(255, 250, 245, 0.42) !important;
+    background: rgba(255, 250, 245, 0.08) !important;
+    color: var(--approved-white) !important;
+  }
+
+  /* Portrait treatment: same border, rose offset and image grade as desktop. */
+  .approved-modern .approved-portrait-frame {
+    border: 1px solid rgba(255, 250, 245, 0.32) !important;
+    background: var(--approved-sky) !important;
+    box-shadow: 10px 12px 0 var(--approved-rose) !important;
+  }
+
+  /* Hero statistics keep the desktop burgundy glass treatment. */
+  .approved-modern .approved-hero-stats {
+    border: 1px solid var(--approved-line-light) !important;
+    background: rgba(67, 16, 34, 0.7) !important;
+  }
+  .approved-modern .approved-hero-stats strong {
+    color: var(--approved-lime) !important;
+  }
+  .approved-modern .approved-hero-stats span {
+    color: #f6e5eb !important;
+  }
+
+  /* Results: same porcelain cards and powder-blue scale panel as desktop. */
+  .approved-modern .approved-result {
+    border: 1px solid var(--approved-line) !important;
+    border-radius: 22px !important;
+    background: var(--approved-white) !important;
+    box-shadow: 0 14px 34px rgba(23, 35, 33, 0.06) !important;
+  }
+  .approved-modern .approved-result-accent {
+    color: var(--approved-blue) !important;
+  }
+  .approved-modern .approved-result h3,
+  .approved-modern .approved-result .approved-result-primary {
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-result p {
+    color: var(--approved-ink-muted) !important;
+  }
+  .approved-modern .approved-result .approved-result-secondary {
+    color: var(--approved-blue-dark) !important;
+  }
+  .approved-modern .approved-scale {
+    border: 1px solid rgba(255, 250, 245, 0.2) !important;
+    border-radius: 22px !important;
+    background: var(--approved-sky) !important;
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-scale span {
+    color: var(--approved-ink-muted) !important;
+  }
+
+  /* Method: exact desktop porcelain treatment. */
+  .approved-modern .approved-method-steps {
+    border: 1px solid var(--approved-line) !important;
+    border-radius: 22px !important;
+    background: rgba(255, 250, 245, 0.96) !important;
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-method-steps h3,
+  .approved-modern .approved-method-steps p strong,
+  .approved-modern .approved-method-steps > li > strong {
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-method-steps p {
+    color: var(--approved-ink-muted) !important;
+  }
+  .approved-modern .approved-step-number {
+    border-color: rgba(108, 24, 56, 0.46) !important;
+    color: var(--approved-blue) !important;
+  }
+  .approved-modern .approved-business-grid article {
+    border: 1px solid var(--approved-line) !important;
+    border-radius: 18px !important;
+    background: var(--approved-white) !important;
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-business-grid h4 {
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-business-grid p {
+    color: var(--approved-ink-muted) !important;
+  }
+
+  /* Cases: identical white shell and desktop pink / blue / lime sequence. */
+  .approved-modern .approved-case {
+    border: 1px solid var(--approved-line) !important;
+    border-radius: 24px !important;
+    background: var(--approved-white) !important;
+    box-shadow: 0 16px 38px rgba(23, 35, 33, 0.07) !important;
+  }
+  .approved-modern .approved-case-visual {
+    border: 1px solid rgba(78, 25, 47, 0.2) !important;
+    border-radius: 18px !important;
+    background: var(--approved-rose) !important;
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-case:nth-child(even) .approved-case-visual {
+    background: var(--approved-sky) !important;
+  }
+  .approved-modern .approved-case:nth-child(4) .approved-case-visual {
+    background: var(--approved-lime) !important;
+  }
+  .approved-modern .approved-case-highlight p,
+  .approved-modern .approved-case-sections p,
+  .approved-modern .approved-case-metrics span,
+  .approved-modern .approved-case-notes p {
+    color: var(--approved-ink-muted) !important;
+  }
+  .approved-modern .approved-case-number {
+    color: var(--approved-blue) !important;
+  }
+  .approved-modern .approved-case-tags,
+  .approved-modern .approved-case h4 {
+    color: #735565 !important;
+  }
+  .approved-modern .approved-case-head h3 {
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-case-metrics strong,
+  .approved-modern .approved-case-facts strong {
+    color: var(--approved-blue-dark) !important;
+  }
+
+  /* Experience remains the same dark editorial section as desktop. */
+  .approved-modern .approved-experience-list {
+    border-top: 1px solid var(--approved-line-light) !important;
+  }
+  .approved-modern .approved-experience-list article {
+    border-bottom: 1px solid var(--approved-line-light) !important;
+    background: transparent !important;
+    color: var(--approved-white) !important;
+  }
+  .approved-modern .approved-experience-period,
+  .approved-modern .approved-experience-copy strong {
+    color: var(--approved-lime) !important;
+  }
+  .approved-modern .approved-experience-role h3 {
+    color: var(--approved-white) !important;
+  }
+  .approved-modern .approved-experience-role strong {
+    color: var(--approved-sky) !important;
+  }
+  .approved-modern .approved-experience-copy p {
+    color: #f8eaf0 !important;
+  }
+  .approved-modern .approved-experience-copy strong {
+    border-color: rgba(214, 246, 95, 0.52) !important;
+    background: rgba(214, 246, 95, 0.08) !important;
+  }
+
+  /* Competencies: same white toolbox and blue AI panel. */
+  .approved-modern .approved-toolbox {
+    border: 1px solid var(--approved-line) !important;
+    border-radius: 22px !important;
+    background: var(--approved-white) !important;
+  }
+  .approved-modern .approved-toolbox h3,
+  .approved-modern .approved-ai-copy h3 {
+    color: var(--approved-blue) !important;
+  }
+  .approved-modern .approved-toolbox strong,
+  .approved-modern .approved-ai-copy strong {
+    color: var(--approved-ink) !important;
+  }
+  .approved-modern .approved-toolbox p,
+  .approved-modern .approved-ai-copy p {
+    color: var(--approved-ink-muted) !important;
+  }
+  .approved-modern .approved-ai-copy {
+    border: 1px solid rgba(78, 25, 47, 0.18) !important;
+    border-radius: 16px !important;
+    background: var(--approved-sky) !important;
+    color: var(--approved-ink) !important;
+  }
+
+  /* Contact: identical dark footer + powder-blue CTA card. */
+  .approved-modern .approved-contact-copy p {
+    color: #f4dfe6 !important;
+  }
+  .approved-modern .approved-contact-copy strong {
+    color: var(--approved-white) !important;
+  }
+  .approved-modern .approved-contact-action {
+    border: 1px solid rgba(255, 250, 245, 0.22) !important;
+    border-radius: 20px !important;
+    background: var(--approved-sky) !important;
+    color: var(--approved-ink) !important;
+    box-shadow: 0 20px 46px rgba(30, 4, 14, 0.24) !important;
+  }
+  .approved-modern .approved-contact-kicker {
+    color: var(--approved-blue) !important;
+  }
+  .approved-modern .approved-button-light {
+    background: var(--approved-lime) !important;
+    color: var(--approved-blue-dark) !important;
+  }
+  .approved-modern .approved-contact-details {
+    border-top: 1px solid var(--approved-line-light) !important;
+    border-bottom: 1px solid var(--approved-line-light) !important;
+  }
+  .approved-modern .approved-contact-details span,
+  .approved-modern .approved-contact-details p {
+    color: #f1dce3 !important;
+  }
+  .approved-modern .approved-contact-details a:not(.approved-contact-resume) {
+    color: var(--approved-white) !important;
+  }
+  .approved-modern .approved-contact-resume {
+    border-color: rgba(214, 246, 95, 0.56) !important;
+    border-radius: 12px !important;
+    color: var(--approved-lime) !important;
+  }
+  .approved-modern .approved-footer-end {
+    color: #e8cbd5 !important;
+  }
+  .approved-modern .approved-footer-end a {
+    color: var(--approved-lime) !important;
+  }
+}
